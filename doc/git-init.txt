@@ -1,0 +1,7 @@
+echo "# LaLa-workspace-11-20" >> README.md
+git init
+git add .
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/SeiichiN/LaLa-workspace-11-20.git
+git push -u origin main

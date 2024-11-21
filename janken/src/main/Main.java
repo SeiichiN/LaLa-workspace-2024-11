@@ -3,6 +3,12 @@ package main;
 public class Main {
 
 	public static void main(String[] args) {
+		while(true) {
+			janken();
+		}
+	}
+	
+	public static void janken() {
 		String[] hand = {"グー", "チョキ", "パー"};
 		int com = new java.util.Random().nextInt(3);
 		System.out.print("0:グー 1:チョキ 2:パー > ");
@@ -19,5 +25,4 @@ public class Main {
 		System.out.println("ユーザー:" + hand[user]);
 		System.out.println(result);
 	}
-
 }

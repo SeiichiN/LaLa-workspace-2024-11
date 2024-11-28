@@ -4,20 +4,22 @@ public class Main {
 
 	public static void main(String[] args) {
 		Game game = new Game();
-		Goblin g = new Goblin("ゴブリン");
+		Goblin g = new Goblin("goblin");
 		g.setLocation(game);
 		g.setSelfOnMap(game);
-		System.out.println(g.type + " y:" + g.y + " x:" + g.x + " " + game.map[g.y][g.x]);
 		
-		Dragon d = new Dragon("ドラゴン");
+		Dragon d = new Dragon("dragon");
 		d.setLocation(game);
 		d.setSelfOnMap(game);
-		System.out.println(d.type + " y:" + d.y + " x:" + d.x + " " + game.map[d.y][d.x]);
+		
+		Potion po = new Potion("potion");
+		po.setLocation(game);
+		po.setSelfOnMap(game);
 		
 		Player p = new Player("太郎");
 		p.setLocation(game);
-		System.out.println(p.name + " y:" + p.y + " x:" + p.x + " " + game.map[p.y][p.x]);
 
+		game.printMap();
 	}
 
 }

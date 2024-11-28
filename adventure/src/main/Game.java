@@ -6,8 +6,18 @@ public class Game {
 	String[][] map = {
 			{".", ".", ".", ".", "."},
 			{".", ".", ".", ".", "."},
-			{".", ".", "#", "#", "#"},
+			{".", ".", "#", "#", "."},
 			{".", ".", ".", ".", "."},
 			{".", ".", ".", ".", "."}
-	}; 
+	};
+	
+	public void printMap() {
+		for (int y = 0; y < YSIZE; y++) {
+			System.out.print("| ");
+			for (int x = 0; x < XSIZE; x++) {
+				System.out.print(map[y][x].charAt(0) + " | ");
+			}
+			System.out.println();
+		}
+	}
 }

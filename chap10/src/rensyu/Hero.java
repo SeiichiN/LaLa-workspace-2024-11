@@ -1,4 +1,4 @@
-package main;
+package rensyu;
 
 public class Hero {
 	String name = "ミナト";

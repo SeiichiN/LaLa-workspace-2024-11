@@ -13,11 +13,12 @@ public class Player {
 		this.hp = 100;
 	}
 	
-	public void setLocation() {
+	public void setLocation(Game g) {
 		Random rnd = new Random();
-		Game g = new Game();
-		this.y = rnd.nextInt(g.YSIZE);
-		this.x = rnd.nextInt(g.XSIZE);
+		do {
+			this.y = rnd.nextInt(g.YSIZE);
+			this.x = rnd.nextInt(g.XSIZE);
+		} while (!g.map[this.y][this.x].equals("."));
 		System.out.println(g.map[y][x]);
 	}
 }

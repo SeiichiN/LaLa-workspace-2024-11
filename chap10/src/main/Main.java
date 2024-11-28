@@ -11,6 +11,7 @@ public class Main {
 		m.run();
 		sh.fly();
 		sh.land();
+		sh.slip();
 	}
 
 }

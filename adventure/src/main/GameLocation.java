@@ -11,7 +11,6 @@ public abstract class GameLocation {
 			this.y = rnd.nextInt(g.YSIZE);
 			this.x = rnd.nextInt(g.XSIZE);
 		} while (!g.map[this.y][this.x].equals("."));
-		System.out.println(g.map[this.y][this.x]);
 	}
 
 }

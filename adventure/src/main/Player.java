@@ -8,5 +8,11 @@ public class Player extends GameLocation {
 		this.name = name;
 		this.hp = 100;
 	}
-	
+	public void move(String dir) {
+		
+	}
+	public void moveLeft() {
+		// xを-1
+		// もしxがマイナスなら x=0 とする
+	}
 }

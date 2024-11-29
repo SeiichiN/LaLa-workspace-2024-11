@@ -19,7 +19,9 @@ public class Main {
 		Player p = new Player("太郎");
 		p.setLocation(game);
 
-		game.printMap();
+		game.printMap();  // mapを表示
+		p.move("w");  // ←に
+		p.move("n");  // ↑に
 	}
 
 }

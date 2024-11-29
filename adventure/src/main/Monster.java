@@ -1,6 +1,7 @@
 package main;
 
-public abstract class Monster extends GameLocation implements SetSelfOnMap {
+public abstract class Monster extends GameLocation 
+                              implements SetSelfOnMap {
 	String type;
 	int hp;
 	

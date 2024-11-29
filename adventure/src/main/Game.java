@@ -9,7 +9,7 @@ public class Game {
 			{".", ".", "#", "#", "."},
 			{".", ".", ".", ".", "."},
 			{".", ".", ".", ".", "."}
-	};
+	}; 
 	
 	public void printMap() {
 		for (int y = 0; y < YSIZE; y++) {

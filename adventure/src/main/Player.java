@@ -1,24 +1,47 @@
 package main;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 public class Player extends GameLocation {
 	String name;
 	int hp;
+	final int MAXAP = 20;
+	List<Item> inventory = new ArrayList<>();
 	
 	public Player(String name) {
 		this.name = name;
 		this.hp = 100;
 	}
-	public void printNowPlace() {
-		System.out.println(this.name + "[" + this.y + ":" + this.x + "]");
+	public void look(Game g) {
+		System.out.print(this.name + "[" + this.y + ":" + this.x + "] ");
+		String thing = g.map[this.y][this.x];
+		String msg = switch (thing) {
+			case "goblin" -> "ゴブリンが現れた！";
+			case "dragon" -> "ドラゴンが現れた！";
+			case "potion" -> "ポーションがある！";
+			default -> "何もありません。";
+		};
+		System.out.println(msg);
 	}
+
 	public void move(String dir, Game g) {
+		int _y = this.y;
+		int _x = this.x;
 		switch (dir) {
 		case "w" -> { moveLeft(); }
 		case "e" -> { moveRight(g); }
 		case "n" -> { moveUp(); }
 		case "s" -> { moveDown(g); }
 		}
-		printNowPlace();
+		if (g.map[y][x].equals("#")) {
+			this.y = _y;
+			this.x = _x;
+			System.out.println("そちらには進めません。");
+			return;
+		}
+		this.look(g);
 	}
 	public void moveLeft() {
 		this.x -= 1;
@@ -36,5 +59,25 @@ public class Player extends GameLocation {
 		this.y += 1;
 		if (this.y >= g.YSIZE) this.y = g.YSIZE - 1;
 	}
-	
+
+	public	void attack(Monster m) {
+		if (this.hp <= 0) { return; }
+		System.out.println(this.name + "の攻撃！");
+		int ap = (int)Math.floor(Math.random() * MAXAP);
+		m.hp -= ap;
+		if (m.hp > 0) {
+			System.out.println(m.type + "に対して" + ap + "のダメージを与えた！");
+		} else {
+			System.out.println(m.type + "を倒した！");
+		}
+	}
+
+	public void take(Item it, Game g) {
+		System.out.print("t:取る > ");
+		Scanner scan = new Scanner(System.in);
+		String action = scan.nextLine().trim().toLowerCase();
+		if (action.equals("t")) {
+			this.inventory.add(it);
+		}
+	}
 }

@@ -21,17 +21,33 @@ public class Main {
 		
 		Player p = new Player("太郎");
 		p.setLocation(game);
-		p.printNowPlace();
+		p.look(game);
 
 		// game.printMap();  // mapを表示
 		
 		outLoop:
 		while (true) {
+			if (p.hp <= 0) {
+				System.out.println(p.name + "は倒れた！");
+				System.out.println("GAME OVER");
+				break; 
+			}
 			System.out.print("wens:移動 q:終了 > ");
 			String dir = scan.nextLine();
 			switch (dir) {
 			case "q" -> { break outLoop; }
 			case "w","e","n","s" -> { p.move(dir, game); }
+			}
+			switch (game.map[p.y][p.x]) {
+			case "goblin" -> {
+				game.buttle(p, g);
+			}
+			case "dragon" -> {
+				game.buttle(p, d);
+			}
+			case "potion" -> {
+				p.take(po, game);
+			}
 			}
 		}
 		System.out.println("終了します。");

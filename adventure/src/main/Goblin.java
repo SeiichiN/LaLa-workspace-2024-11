@@ -8,8 +8,6 @@ public class Goblin extends Monster {
 	@Override
 	public void attack(Player p) {
 		System.out.println(this.type + "は斧で切りつけた。");
-		p.hp -= 10;
-		System.out.println(p.name + "に10ポイントのダメージ");
-		
+		super.attack(p);
 	}
 }

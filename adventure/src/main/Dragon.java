@@ -8,8 +8,7 @@ public class Dragon extends Monster {
 	@Override
 	public void attack(Player p) {
 		System.out.println(this.type + "は口から火を噴いた。");
-		p.hp -= 30;
-		System.out.println(p.name + "に30ポイントのダメージ");
-		
+		super.attack(p);
 	}
+
 }

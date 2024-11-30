@@ -32,11 +32,14 @@ public class Main {
 				System.out.println("GAME OVER");
 				break; 
 			}
-			System.out.print("wens:移動 q:終了 > ");
+			System.out.print("wens:移動 u:使う t:現状 q:終了 > ");
 			String dir = scan.nextLine();
 			switch (dir) {
 			case "q" -> { break outLoop; }
 			case "w","e","n","s" -> { p.move(dir, game); }
+			case "t" -> { p.status(); }
+			case "u" -> { p.use(); }
+			case "p" -> { game.printMap(); }
 			}
 			switch (game.map[p.y][p.x]) {
 			case "goblin" -> {

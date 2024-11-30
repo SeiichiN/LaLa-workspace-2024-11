@@ -8,6 +8,7 @@ public class Player extends GameLocation {
 	String name;
 	int hp;
 	final int MAXAP = 20;
+	final int MAXHP = 100;
 	List<Item> inventory = new ArrayList<>();
 	
 	public Player(String name) {
@@ -24,6 +25,39 @@ public class Player extends GameLocation {
 			default -> "何もありません。";
 		};
 		System.out.println(msg);
+	}
+	
+	public void status() {
+		System.out.print("HP:" + this.hp + " ");
+		inventoryList();
+	}
+	
+	public void inventoryList() {
+		System.out.print("持ち物:");
+		for (int i = 0; i < inventory.size(); i++) {
+			System.out.print("(" + i + ")" + inventory.get(i).type + ",");
+		}
+		System.out.println();
+	}
+	
+	public void use() {
+		inventoryList();
+		System.out.print("何を使いますか？ > ");
+		Scanner scan = new Scanner(System.in);
+		String num = scan.nextLine();
+		int n = Integer.parseInt(num);
+		use(inventory.get(n));
+	}
+	
+	public void use(Item item) {
+		System.out.println(this.name + "は" + item.type + "を使った。");
+		inventory.remove(item);
+		switch (item.type) {
+			case "potion" -> { 
+				this.hp = MAXHP; 
+				System.out.println("HPが" + MAXHP + "になった。");
+			}
+		}
 	}
 
 	public void move(String dir, Game g) {
@@ -78,6 +112,7 @@ public class Player extends GameLocation {
 		String action = scan.nextLine().trim().toLowerCase();
 		if (action.equals("t")) {
 			this.inventory.add(it);
+			g.map[this.y][this.x] = "."; 
 		}
 	}
 }

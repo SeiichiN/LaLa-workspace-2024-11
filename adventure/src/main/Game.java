@@ -31,9 +31,14 @@ public class Game {
 			select = scan.nextLine().trim().toLowerCase();
 			if (select.equals("q")) { return; }
 			p.attack(m);
-			if (m.hp <= 0) { break; }
+			if (m.hp <= 0) { 
+				this.map[m.y][m.x]= "."; 
+				break; 
+			}
 			m.attack(p);
-			if (p.hp <= 0) { break; }
+			if (p.hp <= 0) {
+				break; 
+			}
 			System.out.print(p.name + ":" + p.hp + " ");
 			System.out.println(m.type + ":" + m.hp);
 		}

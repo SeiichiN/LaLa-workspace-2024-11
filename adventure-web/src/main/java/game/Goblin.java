@@ -12,8 +12,7 @@ public class Goblin extends Monster {
 	public List<String> attack(Player p) {
 		List<String> msgList = new ArrayList<>();
 		msgList.add(this.type + "は斧で切りつけた。");
-		List<String> msgList2 = super.attack(p);
-		msgList.addAll(msgList2);
+		msgList.addAll(super.attack(p));
 		return msgList;
 	}
 }

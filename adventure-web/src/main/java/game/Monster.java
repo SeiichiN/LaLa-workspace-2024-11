@@ -23,7 +23,9 @@ public abstract class Monster extends GameLocation
 	
 	public	List<String> attack(Player p) {
 		List<String> msgList = new ArrayList<>();
-		if (this.hp <= 0) { return null; }
+		if (this.hp <= 0) {
+			return msgList; 
+		}
 		msgList.add(this.type + "の攻撃！");
 		int ap = (int)Math.floor(Math.random() * MAXAP);
 		p.hp -= ap;

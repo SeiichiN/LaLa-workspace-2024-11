@@ -16,7 +16,7 @@
 	</section>
 	<section>
 		<h3>初期設定</h3>
-		<form action="game" method="get">
+		<form action="game" method="post">
 			<p>
 				プレーヤーの名前を決めてください。<br>
 				<input type="text" name="name">

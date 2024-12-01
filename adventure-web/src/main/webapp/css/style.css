@@ -35,6 +35,12 @@ header {
 	margin-bottom: 20px;
 }
 
+.header-inn {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
 footer {
 	text-align: center;
 	position: fixed;

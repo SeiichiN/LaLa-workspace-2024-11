@@ -20,22 +20,36 @@ public class GameServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String name = request.getParameter("name");
-		if (name != null) {
-			Game.playerName = name; 
-			String message = "プレーヤーの名前を" + name + "に変えました。";
-			request.setAttribute("message", message);
-		}
-		Goblin g = new Goblin("goblin");
-		Dragon d = new Dragon("dragon");
-		Potion po = new Potion("potion");
-		Player p = new Player(Game.playerName);
 		HttpSession session = request.getSession();
-		session.setAttribute("goblin", g);
-		session.setAttribute("dragon", d);
-		session.setAttribute("potion", po);
-		session.setAttribute("player", p);
+		if (session.getAttribute("goblin") == null) {
+			Goblin g = new Goblin("goblin");
+			session.setAttribute("goblin", g);
+		}
+		if (session.getAttribute("dragon") == null) {
+			Dragon d = new Dragon("dragon");
+			session.setAttribute("dragon", d);
+		}
+		if (session.getAttribute("potion") == null) {
+			Potion po = new Potion("potion");
+			session.setAttribute("potion", po);
+		}
+		if (session.getAttribute("player") == null) {
+			Player p = new Player(Game.playerName);
+			session.setAttribute("player", p);
+		}
 		request.getRequestDispatcher("main.jsp").forward(request, response);
 	}
 
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String name = request.getParameter("name");
+		if (name != null && name.length() > 0) {
+			Game.playerName = name; 
+			String message = "プレーヤーの名前を" + name + "に設定しました。";
+			request.setAttribute("message", message);
+			HttpSession session = request.getSession();
+			Player player = (Player) session.getAttribute("player");
+			player.setName(name);
+		}
+		request.getRequestDispatcher("main.jsp").forward(request, response);
+	}
 }

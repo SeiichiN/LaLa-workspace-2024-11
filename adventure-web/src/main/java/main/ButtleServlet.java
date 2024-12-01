@@ -28,6 +28,7 @@ public class ButtleServlet extends HttpServlet {
 		case "fight" -> {
 			Monster monster = (Monster) session.getAttribute(monsterType);
 			playerMsgList = player.attack(monster);
+			if (monster.getHp() <= 0) break;
 			List<String> monsterMsgList = monster.attack(player);
 			request.setAttribute("monsterMsgList", monsterMsgList);
 			request.setAttribute("monsterType", monsterType);

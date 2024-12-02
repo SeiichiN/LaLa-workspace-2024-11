@@ -8,11 +8,18 @@ public class Player extends GameLocation {
 		this.name = name;
 		this.hp = 100;
 	}
-	public void move(String dir) {
-		
+	public void move(String dir, Game g) {
+		switch (dir) {
+		case "w" -> { moveLeft(); }
+		case "e" -> { moveRight(g); }
+		}
 	}
 	public void moveLeft() {
-		// xを-1
-		// もしxがマイナスなら x=0 とする
+		this.x -= 1;
+		if (this.x < 0) { this.x = 0;	}
+	}
+	public void moveRight(Game g) {
+		this.x += 1;
+		if (this.x >= g.XSIZE) { this.x = g.XSIZE - 1;	}
 	}
 }

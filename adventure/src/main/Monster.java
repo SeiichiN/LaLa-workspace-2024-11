@@ -2,16 +2,28 @@ package main;
 
 public abstract class Monster extends GameLocation 
                               implements SetSelfOnMap {
-	String type;
-	int hp;
+	private String type;
+	private int hp;
 	
 	public Monster(String type) {
 		this.type = type;
 		this.hp = 100;
+		setLocation();
+		setSelfOnMap();
 	}
-	public void setSelfOnMap(Game g) {
-		g.map[this.y][this.x] = this.type;
+	public void setSelfOnMap() {
+		Game.map[this.getY()][this.getX()] = this.type;
 	}
 	
 	public abstract void attack(Player p);
+	
+	public String getType() {
+		return this.type;
+	}
+	public int getHp() {
+		return this.hp;
+	}
+	public void setHp(int hp) {
+		this.hp = hp;
+	}
 }

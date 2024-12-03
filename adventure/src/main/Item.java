@@ -2,13 +2,18 @@ package main;
 
 public abstract class Item extends GameLocation
                            implements SetSelfOnMap {
-	String type;
+	private String type;
 	
 	public Item (String type) {
 		this.type = type;
+		setLocation();
+		setSelfOnMap();
 	}
 	
-	public void setSelfOnMap(Game g) {
-		g.map[this.y][this.x] = this.type;
+	public void setSelfOnMap() {
+		Game.map[this.getY()][this.getX()] = this.type;
 	}	
+	public String getType() {
+		return type;
+	}
 }

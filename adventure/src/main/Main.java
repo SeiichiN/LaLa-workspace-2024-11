@@ -27,8 +27,8 @@ public class Main {
 		
 		outLoop:
 		while (true) {
-			if (p.hp <= 0) {
-				System.out.println(p.name + "は倒れた！");
+			if (p.getHp() <= 0) {
+				System.out.println(p.getName() + "は倒れた！");
 				System.out.println("GAME OVER");
 				break; 
 			}
@@ -41,7 +41,7 @@ public class Main {
 			case "u" -> { p.use(); }
 			case "p" -> { game.printMap(); }
 			}
-			switch (game.map[p.y][p.x]) {
+			switch (game.map[p.getY()][p.getX()]) {
 			case "goblin" -> {
 				game.buttle(p, g);
 			}

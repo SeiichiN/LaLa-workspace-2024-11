@@ -7,7 +7,7 @@ public class Dragon extends Monster {
 
 	@Override
 	public void attack(Player p) {
-		System.out.println(this.type + "は口から火を噴いた。");
+		System.out.println(this.getType() + "は口から火を噴いた。");
 		super.attack(p);
 	}
 

@@ -7,7 +7,7 @@ public class Goblin extends Monster {
 
 	@Override
 	public void attack(Player p) {
-		System.out.println(this.type + "は斧で切りつけた。");
+		System.out.println(this.getType() + "は斧で切りつけた。");
 		super.attack(p);
 	}
 }

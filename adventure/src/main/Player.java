@@ -5,19 +5,19 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Player extends GameLocation {
-	String name;
-	int hp;
-	final int MAXAP = 20;
-	final int MAXHP = 100;
-	List<Item> inventory = new ArrayList<>();
+	private String name;
+	private int hp;
+	private final int MAXAP = 20;
+	private final int MAXHP = 100;
+	private List<Item> inventory = new ArrayList<>();
 	
 	public Player(String name) {
 		this.name = name;
 		this.hp = 100;
 	}
 	public void look(Game g) {
-		System.out.print(this.name + "[" + this.y + ":" + this.x + "] ");
-		String thing = g.map[this.y][this.x];
+		System.out.print(this.name + "[" + this.getY() + ":" + this.getX() + "] ");
+		String thing = g.map[this.getY()][this.getX()];
 		String msg = switch (thing) {
 			case "goblin" -> "ゴブリンが現れた！";
 			case "dragon" -> "ドラゴンが現れた！";
@@ -35,7 +35,7 @@ public class Player extends GameLocation {
 	public void inventoryList() {
 		System.out.print("持ち物:");
 		for (int i = 0; i < inventory.size(); i++) {
-			System.out.print("(" + i + ")" + inventory.get(i).type + ",");
+			System.out.print("(" + i + ")" + inventory.get(i).getType() + ",");
 		}
 		System.out.println();
 	}
@@ -50,9 +50,9 @@ public class Player extends GameLocation {
 	}
 	
 	public void use(Item item) {
-		System.out.println(this.name + "は" + item.type + "を使った。");
+		System.out.println(this.name + "は" + item.getType() + "を使った。");
 		inventory.remove(item);
-		switch (item.type) {
+		switch (item.getType()) {
 			case "potion" -> { 
 				this.hp = MAXHP; 
 				System.out.println("HPが" + MAXHP + "になった。");
@@ -61,48 +61,48 @@ public class Player extends GameLocation {
 	}
 
 	public void move(String dir, Game g) {
-		int _y = this.y;
-		int _x = this.x;
+		int _y = this.getY();
+		int _x = this.getX();
 		switch (dir) {
 		case "w" -> { moveLeft(); }
 		case "e" -> { moveRight(g); }
 		case "n" -> { moveUp(); }
 		case "s" -> { moveDown(g); }
 		}
-		if (g.map[y][x].equals("#")) {
-			this.y = _y;
-			this.x = _x;
+		if (g.map[this.getY()][this.getX()].equals("#")) {
+			this.setY(_y);
+			this.setX(_x);
 			System.out.println("そちらには進めません。");
 			return;
 		}
 		this.look(g);
 	}
-	public void moveLeft() {
-		this.x -= 1;
-		if (this.x < 0) this.x = 0;
+	private void moveLeft() {
+		this.setX(this.getX() - 1);
+		if (this.getX() < 0) this.setX(0);
 	}
-	public void moveRight(Game g) {
-		this.x += 1;
-		if (this.x >= g.XSIZE) this.x = g.XSIZE - 1;
+	private void moveRight(Game g) {
+		this.setX(this.getX() + 1);
+		if (this.getX() >= g.XSIZE) this.setX(g.XSIZE - 1);
 	}
-	public void moveUp() {
-		this.y -= 1;
-		if (this.y < 0) this.x = 0;
+	private void moveUp() {
+		this.setY(this.getY() - 1);
+		if (this.getY() < 0) this.setX(0);
 	}
-	public void moveDown(Game g) {
-		this.y += 1;
-		if (this.y >= g.YSIZE) this.y = g.YSIZE - 1;
+	private void moveDown(Game g) {
+		this.setY(this.getY() + 1);
+		if (this.getY() >= g.YSIZE) this.setY(g.YSIZE - 1);
 	}
 
 	public	void attack(Monster m) {
 		if (this.hp <= 0) { return; }
 		System.out.println(this.name + "の攻撃！");
 		int ap = (int)Math.floor(Math.random() * MAXAP);
-		m.hp -= ap;
-		if (m.hp > 0) {
-			System.out.println(m.type + "に対して" + ap + "のダメージを与えた！");
+		m.setHp(m.getHp() - ap);
+		if (m.getHp() > 0) {
+			System.out.println(m.getType() + "に対して" + ap + "のダメージを与えた！");
 		} else {
-			System.out.println(m.type + "を倒した！");
+			System.out.println(m.getType() + "を倒した！");
 		}
 	}
 
@@ -112,7 +112,25 @@ public class Player extends GameLocation {
 		String action = scan.nextLine().trim().toLowerCase();
 		if (action.equals("t")) {
 			this.inventory.add(it);
-			g.map[this.y][this.x] = "."; 
+			g.map[this.getY()][this.getX()] = "."; 
 		}
+	}
+	public String getName() {
+		return name;
+	}
+	public int getHp() {
+		return hp;
+	}
+	public int getMAXAP() {
+		return MAXAP;
+	}
+	public int getMAXHP() {
+		return MAXHP;
+	}
+	public List<Item> getInventory() {
+		return inventory;
+	}
+	public void setHp(int hp) {
+		this.hp = hp;
 	}
 }

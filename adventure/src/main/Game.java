@@ -13,7 +13,7 @@ public class Game {
 			{".", ".", ".", ".", "."}
 	}; 
 	
-	public void printMap() {
+	public static void printMap() {
 		for (int y = 0; y < YSIZE; y++) {
 			System.out.print("| ");
 			for (int x = 0; x < XSIZE; x++) {
@@ -23,24 +23,24 @@ public class Game {
 		}
 	}
 	
-	public void buttle(Player p, Monster m) {
+	public static void buttle(Player p, Monster m) {
 		Scanner scan = new Scanner(System.in);
-		String select = null;
 		while (true) {
-			System.out.print("a:攻撃する q:逃げる > ");
-			select = scan.nextLine().trim().toLowerCase();
-			if (select.equals("q")) { return; }
-			p.attack(m);
-			if (m.getHp() <= 0) { 
-				this.map[m.getY()][m.getX()]= "."; 
-				break; 
+			if (p.getHp() <= 0 || m.getHp() <= 0) { break; }
+			System.out.print("A:戦う R:逃げる > ");
+			String s = scan.nextLine();
+			switch (s) {
+				case "r" -> { return; }
+				case "a" -> {
+					p.attack(m);
+					m.attack(p);
+					System.out.print(p.getName() + " HP:" + p.getHp() + "  ");
+					System.out.println(m.getType() + " HP:" + m.getHp());
+				}
 			}
-			m.attack(p);
-			if (p.getHp() <= 0) {
-				break; 
-			}
-			System.out.print(p.getName() + ":" + p.getHp() + " ");
-			System.out.println(m.getType() + ":" + m.getHp());
 		}
+		if (m.getHp() <= 0) {
+			map[m.getY()][m.getX()] = ".";
+ 		}
 	}
 }

@@ -12,6 +12,16 @@ public class Wizard {
 	}
 	
 
+	public Wizard(String name, Wand wand) {
+		this.setName(name);
+		this.setWand(wand);
+	}
+	
+	public String toString() {
+		return name + " HP:" + hp + " MP:" +
+	            mp + " 装備:" + wand;
+	}
+
 	public void heal(Hero h) {
 		int basePoint = 10;
 		int recovPoint = (int) (basePoint * this.wand.getPower());
@@ -23,7 +33,13 @@ public class Wizard {
 		return this.hp;
 	}
 	public void setHp(int hp) {
+<<<<<<< HEAD
 		if (hp < 0) { hp = 0; }
+=======
+		if (hp < 0) {
+			hp = 0;
+		}
+>>>>>>> main
 		this.hp = hp;
 	}
 	public int getMp() {
@@ -31,7 +47,11 @@ public class Wizard {
 	}
 	public void setMp(int mp) {
 		if (mp < 0) {
+<<<<<<< HEAD
 			throw new IllegalArgumentException("魔力がマイナスで、不正です。");
+=======
+			throw new IllegalArgumentException("MPは0以上が必要です。");
+>>>>>>> main
 		}
 		this.mp = mp;
 	}

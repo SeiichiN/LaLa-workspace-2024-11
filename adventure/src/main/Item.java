@@ -6,13 +6,14 @@ public abstract class Item extends GameLocation
 	
 	public Item (String type) {
 		this.type = type;
+		setLocation();
+		setSelfOnMap();
 	}
 	
-	public void setSelfOnMap(Game g) {
-		g.map[this.getY()][this.getX()] = this.type;
-	}
-	
+	public void setSelfOnMap() {
+		Game.map[this.getY()][this.getX()] = this.type;
+	}	
 	public String getType() {
-		return this.type;
+		return type;
 	}
 }

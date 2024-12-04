@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class Player extends GameLocation {
 	private String name;
 	private int hp;
+	private List<Item> itemList = new ArrayList<>();
 	
 	public Player(String name) {
 		this.name = name;
@@ -14,12 +15,35 @@ public class Player extends GameLocation {
 		setLocation();
 	}
 	
+	public void take(Item item) {
+		String itemName = Game.map[this.getY()][this.getX()];
+		System.out.print(itemName + "を取りますか？ (y/n) > ");
+		Scanner scan = new Scanner(System.in);
+		String str = scan.nextLine().toLowerCase();
+		if (str.equals("y")) {
+			this.itemList.add(item);
+			Game.map[this.getY()][this.getX()] = ".";
+		}
+	}
+	
+	public void status() {
+		String text = "HP:" + this.getHp() + " 装備:";
+		for (Item i : itemList) {
+			text = text + i.getType() + ",";
+		}
+		System.out.println(text);
+	}
+	
 	public void attack(Monster m) {
 		if (this.hp <= 0) { return; }
 		System.out.println(this.getName() + "は剣で切りつけた。");
 		int ap = (int)Math.floor(Math.random() * 31);
-		m.setHp(m.getHp() - ap);
-		System.out.println(m.getType() + "に" + ap + "ポイントのダメージ");
+		if (ap == 0) {
+			System.out.println(this.getName() + "の攻撃は失敗した！");
+		} else {
+			m.setHp(m.getHp() - ap);
+			System.out.println(m.getType() + "に" + ap + "ポイントのダメージを与えた！");
+		}
 		if (m.getHp() <= 0) {
 			System.out.println(m.getType() + "を倒した。");
 		}		
@@ -45,11 +69,18 @@ public class Player extends GameLocation {
 	}
 	
 	public void move(String dir) {
+		int _y = this.getY();
+		int _x = this.getX();
 		switch (dir) {
 		case "w" -> { moveLeft(); }
 		case "e" -> { moveRight(); }
 		case "n" -> { moveUp(); }
 		case "s" -> { moveDown(); }
+		}
+		if (Game.map[this.getY()][this.getX()].equals("#")) {
+			System.out.println("そちらには行けません。");
+			this.setY(_y);
+			this.setX(_x);
 		}
 	}
 	private void moveLeft() {
@@ -67,5 +98,9 @@ public class Player extends GameLocation {
 	private void moveDown() {
 		this.setY(this.getY() + 1);
 		if (this.getY() >= Game.YSIZE) { this.setY(Game.YSIZE - 1);	}
+	}
+
+	public List<Item> getItemList() {
+		return itemList;
 	}
 }

@@ -23,6 +23,41 @@ public class Game {
 		}
 	}
 	
+	public static void printMap(Player p) {
+		char c = ' ';
+		for (int y = 0; y < YSIZE; y++) {
+			System.out.print("| ");
+			for (int x = 0; x < XSIZE; x++) {
+				if (p.getY() == y && p.getX() == x) {
+					c = '*';
+				} else {
+					c = map[y][x].charAt(0);
+				}
+				System.out.print(c + " | ");
+			}
+			System.out.println();
+		}
+	}
+	
+	public static void printOpening() {
+		String opening = 
+				"""
+				+-------------------------+
+				|  Adventure Game         |
+				|                         |
+				|     by Seiichi Nukayama |
+				+-------------------------+
+				""";
+		System.out.println(opening);
+	}
+	
+	public static String getPlayerName() {
+		Scanner scan = new Scanner(System.in);
+		System.out.print("プレーヤーの名前を決めてください > ");
+		String name = scan.nextLine();
+		return name;
+	}
+	
 	public static void buttle(Player p, Monster m) {
 		Scanner scan = new Scanner(System.in);
 		while (true) {

@@ -34,7 +34,7 @@ public class GameServlet extends HttpServlet {
 			session.setAttribute("potion", po);
 		}
 		if (session.getAttribute("player") == null) {
-			Player p = new Player(Game.playerName);
+			Player p = new Player();
 			session.setAttribute("player", p);
 		}
 		request.getRequestDispatcher("main.jsp").forward(request, response);
@@ -43,7 +43,7 @@ public class GameServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("name");
 		if (name != null && name.length() > 0) {
-			Game.playerName = name; 
+			// Game.playerName = name; 
 			String message = "プレーヤーの名前を" + name + "に設定しました。";
 			request.setAttribute("message", message);
 			HttpSession session = request.getSession();

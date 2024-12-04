@@ -11,16 +11,14 @@ import game.Potion;
 public class Main {
 
 	public static void main(String[] args) {
-		Game.openning();
+		String name = Game.openning();
 		Scanner scan = new Scanner(System.in);
 		Goblin g = new Goblin("goblin");
 		Dragon d = new Dragon("dragon");
 		Potion po = new Potion("potion");
-		Player p = new Player(Game.playerName);
+		Player p = new Player(name);
 		p.look();
 
-		// game.printMap();  // mapを表示
-		
 		outLoop:
 		while (true) {
 			if (p.hp <= 0) {

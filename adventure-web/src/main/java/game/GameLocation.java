@@ -3,15 +3,20 @@ package game;
 import java.util.Random;
 
 public abstract class GameLocation {
-	public int y;
-	public int x;
+	private int y;
+	private int x;
+	private Game game;
+	
+	public GameLocation(Game game) {
+		this.game = game;
+	}
 	
 	public void setLocation() {
 		Random rnd = new Random();
 		do {
 			this.y = rnd.nextInt(Game.YSIZE);
 			this.x = rnd.nextInt(Game.XSIZE);
-		} while (!Game.map[this.y][this.x].equals("."));
+		} while (!game.map[this.y][this.x].equals("."));
 	}
 
 	public int getY() {
@@ -28,6 +33,10 @@ public abstract class GameLocation {
 
 	public void setX(int x) {
 		this.x = x;
+	}
+
+	public Game getGame() {
+		return game;
 	}
 
 }

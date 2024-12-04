@@ -3,18 +3,30 @@ package game;
 import java.util.Scanner;
 
 public class Game {
+	private static Game game;
 	public static final int YSIZE = 5;
 	public static final int XSIZE = 5;
-	public static String[][] map = {
+	private String[][] map = {
 			{".", ".", ".", ".", "."},
 			{".", ".", ".", ".", "."},
 			{".", ".", "#", "#", "."},
 			{".", ".", ".", ".", "."},
 			{".", ".", ".", ".", "."}
 	}; 
-	public static String playerName = "";
 	
-	public static void printMap() {
+	private Game() {
+		game = new Game();
+	}
+	
+	public static Game getInstance() {
+		if (game != null) { return game; }
+		else { 
+			game =  new Game();
+			return game;
+		}
+	}
+	
+	public void printMap() {
 		for (int y = 0; y < YSIZE; y++) {
 			System.out.print("| ");
 			for (int x = 0; x < XSIZE; x++) {
@@ -24,11 +36,11 @@ public class Game {
 		}
 	}
 	
-	public static String getCharacter(int y, int x) {
+	public String getCharacter(int y, int x) {
 		return map[y][x];
 	}
 	
-	public static void buttle(Player p, Monster m) {
+	public void buttle(Player p, Monster m) {
 		Scanner scan = new Scanner(System.in);
 		String select = null;
 		while (true) {
@@ -49,7 +61,7 @@ public class Game {
 		}
 	}
 	
-	public static void openning() {
+	public static String openning() {
 		Scanner scan = new Scanner(System.in);
 		String gamen = 
 				"""
@@ -61,6 +73,7 @@ public class Game {
 				""";
 		System.out.println(gamen);
 		System.out.print("プレーヤーの名前を決めてください > ");
-		playerName = scan.nextLine();
+		String name = scan.nextLine();
+		return name;
 	}
 }

@@ -5,20 +5,24 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Player extends GameLocation {
-	public String name;
-	public int hp;
-	public final int MAXAP = 20;
-	public final int MAXHP = 100;
-	public List<Item> inventory = new ArrayList<>();
+	private String name;
+	private int hp;
+	private final int MAXAP = 20;
+	private final int MAXHP = 100;
+	private List<Item> inventory = new ArrayList<>();
 	
-	public Player(String name) {
+	public Player(Game game) {
+		this("", game);
+	}
+	public Player(String name, Game game) {
+		super(game);
 		this.name = name;
 		this.hp = 100;
 		this.setLocation();
 	}
 	public void look() {
-		System.out.print(this.name + "[" + this.y + ":" + this.x + "] ");
-		String thing = Game.map[this.y][this.x];
+		System.out.print(this.name + "[" + this.getY() + ":" + this.getX() + "] ");
+		String thing = this.getGame().map[this.getY()][this.getX()];
 		String msg = switch (thing) {
 			case "goblin" -> "ゴブリンが現れた！";
 			case "dragon" -> "ドラゴンが現れた！";
@@ -29,7 +33,7 @@ public class Player extends GameLocation {
 	}
 	
 	public void status() {
-		System.out.print(this.name + " [" + this.y + ":" + this.x + "] ");
+		System.out.print(this.name + " [" + this.getY() + ":" + this.getX() + "] ");
 		System.out.print("HP:" + this.hp + " ");
 		inventoryList();
 	}
@@ -37,7 +41,7 @@ public class Player extends GameLocation {
 	public void inventoryList() {
 		System.out.print("持ち物:");
 		for (int i = 0; i < inventory.size(); i++) {
-			System.out.print("(" + i + ")" + inventory.get(i).type + ",");
+			System.out.print("(" + i + ")" + inventory.get(i).getType() + ",");
 		}
 		System.out.println();
 	}
@@ -52,9 +56,9 @@ public class Player extends GameLocation {
 	}
 	
 	public void use(Item item) {
-		System.out.println(this.name + "は" + item.type + "を使った。");
+		System.out.println(this.name + "は" + item.getType() + "を使った。");
 		inventory.remove(item);
-		switch (item.type) {
+		switch (item.getType()) {
 			case "potion" -> { 
 				this.hp = MAXHP; 
 				System.out.println("HPが" + MAXHP + "になった。");
@@ -63,37 +67,37 @@ public class Player extends GameLocation {
 	}
 
 	public void move(String dir) {
-		int _y = this.y;
-		int _x = this.x;
+		int _y = this.getY();
+		int _x = this.getX();
 		switch (dir) {
 		case "w" -> { moveLeft(); }
 		case "e" -> { moveRight(); }
 		case "n" -> { moveUp(); }
 		case "s" -> { moveDown(); }
 		}
-		if (Game.map[y][x].equals("#")) {
-			this.y = _y;
-			this.x = _x;
+		if (this.getGame().map[this.getY()][this.getX()].equals("#")) {
+			this.setY(_y);
+			this.setX(_x);
 			System.out.println("そちらには進めません。");
 			return;
 		}
 		this.look();
 	}
 	public void moveLeft() {
-		this.x -= 1;
-		if (this.x < 0) this.x = 0;
+		this.setX(this.getX() - 1);
+		if (this.getX() < 0) this.setX(0);
 	}
 	public void moveRight() {
-		this.x += 1;
-		if (this.x >= Game.XSIZE) this.x = Game.XSIZE - 1;
+		this.setX(this.getX() + 1);
+		if (this.getX() >= Game.XSIZE) this.setX(Game.XSIZE - 1);
 	}
 	public void moveUp() {
-		this.y -= 1;
-		if (this.y < 0) this.x = 0;
+		this.setY(this.getY() - 1);
+		if (this.getY() < 0) this.setY(0);
 	}
 	public void moveDown() {
-		this.y += 1;
-		if (this.y >= Game.YSIZE) this.y = Game.YSIZE - 1;
+		this.setY(this.getY() + 1);
+		if (this.getY() >= Game.YSIZE) this.setY(Game.YSIZE - 1);
 	}
 
 	public	List<String> attack(Monster m) {
@@ -101,11 +105,11 @@ public class Player extends GameLocation {
 		if (this.hp <= 0) { return null; }
 		msgList.add(this.name + "の攻撃！");
 		int ap = (int)Math.floor(Math.random() * MAXAP);
-		m.hp -= ap;
-		if (m.hp > 0) {
-			msgList.add(m.type + "に対して" + ap + "のダメージを与えた！");
+		m.setHp(m.getHp() - ap);
+		if (m.getHp() > 0) {
+			msgList.add(m.getType() + "に対して" + ap + "のダメージを与えた！");
 		} else {
-			msgList.add(m.type + "を倒した！");
+			msgList.add(m.getType() + "を倒した！");
 		}
 		return msgList;
 	}
@@ -116,7 +120,7 @@ public class Player extends GameLocation {
 		String action = scan.nextLine().trim().toLowerCase();
 		if (action.equals("t")) {
 			this.inventory.add(it);
-			Game.map[this.y][this.x] = "."; 
+			this.getGame().map[this.getY()][this.getX()] = "."; 
 		}
 	}
 	public String getName() {
@@ -130,5 +134,8 @@ public class Player extends GameLocation {
 	}
 	public void setHp(int hp) {
 		this.hp = hp;
+	}
+	public List<Item> getInventory() {
+		return inventory;
 	}
 }

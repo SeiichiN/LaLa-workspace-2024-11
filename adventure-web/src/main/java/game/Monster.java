@@ -5,11 +5,12 @@ import java.util.List;
 
 public abstract class Monster extends GameLocation 
                               implements SetSelfOnMap {
-	public String type;
-	public int hp;
-	public final int MAXAP = 20;
+	private String type;
+	private int hp;
+	private final int MAXAP = 20;
 	
-	public Monster(String type) {
+	public Monster(String type, Game game) {
+		super(game);
 		this.type = type;
 		this.hp = 100;
 		this.setLocation();
@@ -18,7 +19,7 @@ public abstract class Monster extends GameLocation
 	
 	@Override
 	public void setSelfOnMap() {
-		Game.map[this.y][this.x] = this.type;
+		this.getGame().map[this.getY()][this.getX()] = this.type;
 	}
 	
 	public	List<String> attack(Player p) {

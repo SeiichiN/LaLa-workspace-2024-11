@@ -5,10 +5,12 @@ import java.util.Scanner;
 public class Game {
 	public static final int YSIZE = 5;
 	public static final int XSIZE = 5;
+	public static final int REWARD = 50;
+	public static final int AMOUNT = 200;
 	public static String[][] map = {
 			{".", ".", ".", ".", "."},
 			{".", ".", ".", ".", "."},
-			{".", ".", "#", "#", "."},
+			{".", ".", ".", ".", "."},
 			{".", ".", ".", ".", "."},
 			{".", ".", ".", ".", "."}
 	}; 
@@ -76,6 +78,7 @@ public class Game {
 		}
 		if (m.getHp() <= 0) {
 			map[m.getY()][m.getX()] = ".";
+			p.setGolds(Game.REWARD);
  		}
 	}
 }

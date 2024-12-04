@@ -8,6 +8,7 @@ public class Player extends GameLocation {
 	private String name;
 	private int hp;
 	private List<Item> itemList = new ArrayList<>();
+	private int golds;
 	
 	public Player(String name) {
 		this.name = name;
@@ -15,15 +16,48 @@ public class Player extends GameLocation {
 		setLocation();
 	}
 	
+	public void use() {
+		System.out.print("持ち物:");
+		for (int i = 0; i < this.itemList.size(); i++) {
+			System.out.print(" [" + i+ "]:" + this.itemList.get(i));
+		}
+		System.out.print("どれを使いますか？ > ");
+		Scanner scan = new Scanner(System.in);
+		int num = scan.nextInt();
+		Item item = this.itemList.get(num);
+		String itemType = item.getType();
+		switch (itemType) {
+		case "potion" -> { 
+			if (item instanceof Potion) {
+				Potion p = (Potion) item;
+				this.setHp(p.getRp());
+			}
+		}
+		}
+		Game.map[item.getY()][item.getX()] = ".";
+	}
+	
 	public void take(Item item) {
-		String itemName = Game.map[this.getY()][this.getX()];
-		System.out.print(itemName + "を取りますか？ (y/n) > ");
+		System.out.print(item.getType() + "を取りますか？ (y/n) > ");
 		Scanner scan = new Scanner(System.in);
 		String str = scan.nextLine().toLowerCase();
 		if (str.equals("y")) {
 			this.itemList.add(item);
 			Game.map[this.getY()][this.getX()] = ".";
 		}
+	}
+	
+	public void take(Gold[] golds) {
+		int nowGold = 0;
+		for (Gold g : golds) {
+			if (this.getY() == g.getY() && this.getX() == g.getX()) {
+				nowGold = g.getGold();
+				this.golds += nowGold; 
+				g.setGold(0);
+				Game.map[g.getY()][g.getX()] = ".";
+			}
+		}
+		System.out.println("GOLDを" + nowGold + "手に入れた。");
 	}
 	
 	public void status() {
@@ -102,5 +136,13 @@ public class Player extends GameLocation {
 
 	public List<Item> getItemList() {
 		return itemList;
+	}
+
+	public int getGolds() {
+		return golds;
+	}
+
+	public void setGolds(int golds) {
+		this.golds = golds;
 	}
 }

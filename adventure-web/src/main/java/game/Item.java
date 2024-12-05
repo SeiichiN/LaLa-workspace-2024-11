@@ -12,7 +12,7 @@ public abstract class Item extends GameLocation
 	}
 	
 	public void setSelfOnMap() {
-		this.getGame().map[this.getY()][this.getX()] = this.type;
+		this.getGame().getMap()[this.getY()][this.getX()] = this.type;
 	}
 
 	public String getType() {

@@ -7,7 +7,7 @@ public class Wizard {
 	private Wand wand;
 	
 	public Wizard() {
-		Wand wand = new Wand("魔法の杖");
+		Wand wand = new Wand();
 		setWand(wand);
 	}
 	
@@ -33,13 +33,9 @@ public class Wizard {
 		return this.hp;
 	}
 	public void setHp(int hp) {
-<<<<<<< HEAD
-		if (hp < 0) { hp = 0; }
-=======
 		if (hp < 0) {
 			hp = 0;
 		}
->>>>>>> main
 		this.hp = hp;
 	}
 	public int getMp() {
@@ -47,11 +43,7 @@ public class Wizard {
 	}
 	public void setMp(int mp) {
 		if (mp < 0) {
-<<<<<<< HEAD
-			throw new IllegalArgumentException("魔力がマイナスで、不正です。");
-=======
 			throw new IllegalArgumentException("MPは0以上が必要です。");
->>>>>>> main
 		}
 		this.mp = mp;
 	}
@@ -71,7 +63,4 @@ public class Wizard {
 		this.wand = wand;
 	}
 	
-	public String toString() {
-		return this.name + "HP:" + this.hp + " MP:" + this.mp + " 装備:" + this.wand.getName();
-	}
 }

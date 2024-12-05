@@ -19,7 +19,7 @@ public abstract class Monster extends GameLocation
 	
 	@Override
 	public void setSelfOnMap() {
-		this.getGame().map[this.getY()][this.getX()] = this.type;
+		this.getGame().getMap()[this.getY()][this.getX()] = this.type;
 	}
 	
 	public	List<String> attack(Player p) {
@@ -29,11 +29,11 @@ public abstract class Monster extends GameLocation
 		}
 		msgList.add(this.type + "の攻撃！");
 		int ap = (int)Math.floor(Math.random() * MAXAP);
-		p.hp -= ap;
-		if (p.hp > 0) {
-			msgList.add(p.name + "に対して" + ap + "のダメージを与えた！");
+		p.setHp(p.getHp() - ap);
+		if (p.getHp() > 0) {
+			msgList.add(p.getName() + "に対して" + ap + "のダメージを与えた！");
 		} else {
-			msgList.add(p.name + "を倒した！");
+			msgList.add(p.getName() + "を倒した！");
 		}
 		return msgList;
 	}

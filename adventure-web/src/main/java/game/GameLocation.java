@@ -16,7 +16,7 @@ public abstract class GameLocation {
 		do {
 			this.y = rnd.nextInt(Game.YSIZE);
 			this.x = rnd.nextInt(Game.XSIZE);
-		} while (!game.map[this.y][this.x].equals("."));
+		} while (!(game.getMap())[this.y][this.x].equals("."));
 	}
 
 	public int getY() {

@@ -16,7 +16,7 @@ tmp/
 
 # add by Seiichi
 /Servers/
-
+build/
 
 ### Java ###
 # Compiled class file

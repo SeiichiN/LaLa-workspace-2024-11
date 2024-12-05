@@ -3,7 +3,7 @@ package game;
 import java.util.Scanner;
 
 public class Game {
-	private static Game game;
+	private static Game game = null;
 	public static final int YSIZE = 5;
 	public static final int XSIZE = 5;
 	private String[][] map = {
@@ -14,16 +14,17 @@ public class Game {
 			{".", ".", ".", ".", "."}
 	}; 
 	
-	private Game() {
-		game = new Game();
-	}
+	private Game() {}
 	
 	public static Game getInstance() {
-		if (game != null) { return game; }
-		else { 
-			game =  new Game();
-			return game;
+		if (game == null) {
+			synchronized (Game.class) {
+				if (game == null) {
+					game =  new Game();
+				}
+			}
 		}
+		return game;
 	}
 	
 	public void printMap() {
@@ -48,16 +49,16 @@ public class Game {
 			select = scan.nextLine().trim().toLowerCase();
 			if (select.equals("q")) { return; }
 			p.attack(m);
-			if (m.hp <= 0) { 
-				map[m.y][m.x]= "."; 
+			if (m.getHp() <= 0) { 
+				map[m.getY()][m.getX()]= "."; 
 				break; 
 			}
 			m.attack(p);
-			if (p.hp <= 0) {
+			if (p.getHp() <= 0) {
 				break; 
 			}
-			System.out.print(p.name + ":" + p.hp + " ");
-			System.out.println(m.type + ":" + m.hp);
+			System.out.print(p.getName() + ":" + p.getHp() + " ");
+			System.out.println(m.getType() + ":" + m.getHp());
 		}
 	}
 	
@@ -75,5 +76,9 @@ public class Game {
 		System.out.print("プレーヤーの名前を決めてください > ");
 		String name = scan.nextLine();
 		return name;
+	}
+
+	public String[][] getMap() {
+		return map;
 	}
 }

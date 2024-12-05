@@ -1,8 +1,14 @@
 package game;
 
 public class Potion extends Item {
-	public int rp = 100;
-	public Potion(String type) {
-		super(type);
+	private int rp = 100;
+	public Potion(String type, Game game) {
+		super(type, game);
+	}
+	public int getRp() {
+		return rp;
+	}
+	public void setRp(int rp) {
+		this.rp = rp;
 	}
 }

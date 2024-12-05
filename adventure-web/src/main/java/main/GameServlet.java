@@ -1,13 +1,13 @@
 package main;
 
+import java.io.IOException;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
-import java.io.IOException;
 
 import game.Dragon;
 import game.Game;
@@ -21,20 +21,21 @@ public class GameServlet extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		Game game = Game.getInstance();
 		if (session.getAttribute("goblin") == null) {
-			Goblin g = new Goblin("goblin");
+			Goblin g = new Goblin("goblin", game);
 			session.setAttribute("goblin", g);
 		}
 		if (session.getAttribute("dragon") == null) {
-			Dragon d = new Dragon("dragon");
+			Dragon d = new Dragon("dragon", game);
 			session.setAttribute("dragon", d);
 		}
 		if (session.getAttribute("potion") == null) {
-			Potion po = new Potion("potion");
+			Potion po = new Potion("potion", game);
 			session.setAttribute("potion", po);
 		}
 		if (session.getAttribute("player") == null) {
-			Player p = new Player();
+			Player p = new Player(game);
 			session.setAttribute("player", p);
 		}
 		request.getRequestDispatcher("main.jsp").forward(request, response);

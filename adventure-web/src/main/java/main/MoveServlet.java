@@ -2,15 +2,15 @@ package main;
 
 import java.io.IOException;
 
-import game.Game;
-import game.Monster;
-import game.Player;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+
+import game.Game;
+import game.Player;
 
 @WebServlet("/move")
 public class MoveServlet extends HttpServlet {
@@ -25,7 +25,8 @@ public class MoveServlet extends HttpServlet {
 				HttpSession session = request.getSession();
 				Player player = (Player)session.getAttribute("player");
 				player.move(direction);
-				String chara = Game.getCharacter(player.y, player.x);
+				Game game = Game.getInstance();
+				String chara = game.getCharacter(player.getY(), player.getX());
 				switch (chara) {
 					case "goblin", "dragon" -> {
 						request.setAttribute("monsterType", chara);

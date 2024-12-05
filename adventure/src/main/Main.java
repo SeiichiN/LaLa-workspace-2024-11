@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Main {
 
 	public static void main(String[] args) {
+		Game.opening();
 		Goblin g = new Goblin("goblin");
 		Dragon d = new Dragon("dragon");
 		Potion po = new Potion("potion");

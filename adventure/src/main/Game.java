@@ -13,6 +13,19 @@ public class Game {
 			{".", ".", ".", ".", "."}
 	}; 
 	
+	public static void opening() {
+		// p.68 テキストブロック
+		String str = 
+				"""
+				+----------------------+
+				| Adventure Game       |
+				|                      |
+				|  by Seiichi Nukayama |
+				+----------------------+
+				""";
+		System.out.println(str);
+	}
+	
 	public static void printMap() {
 		for (int y = 0; y < YSIZE; y++) {
 			System.out.print("| ");

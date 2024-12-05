@@ -8,7 +8,7 @@ public class Main {
 		System.out.print("> ");
 		String sss = "sukkiri";
 		String str = new Scanner(System.in).nextLine();
-		if (str == sss) {
+		if (str.equals(sss)) {
 			System.out.println("同じ");
 		} else {
 			System.out.println("ちがう");

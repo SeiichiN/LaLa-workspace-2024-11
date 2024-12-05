@@ -11,7 +11,7 @@ import game.Potion;
 public class Main {
 
 	public static void main(String[] args) {
-		Game game = Game.getInstance();
+		Game game = new Game();
 		String name = Game.openning();
 		Scanner scan = new Scanner(System.in);
 		Goblin g = new Goblin("goblin", game);

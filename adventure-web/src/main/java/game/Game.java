@@ -3,7 +3,6 @@ package game;
 import java.util.Scanner;
 
 public class Game {
-	private static Game game = null;
 	public static final int YSIZE = 5;
 	public static final int XSIZE = 5;
 	private String[][] map = {
@@ -14,18 +13,7 @@ public class Game {
 			{".", ".", ".", ".", "."}
 	}; 
 	
-	private Game() {}
-	
-	public static Game getInstance() {
-		if (game == null) {
-			synchronized (Game.class) {
-				if (game == null) {
-					game =  new Game();
-				}
-			}
-		}
-		return game;
-	}
+	public Game() {}
 	
 	public void printMap() {
 		for (int y = 0; y < YSIZE; y++) {

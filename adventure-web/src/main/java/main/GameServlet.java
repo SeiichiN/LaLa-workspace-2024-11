@@ -21,7 +21,8 @@ public class GameServlet extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		Game game = Game.getInstance();
+		Game game = new Game();
+		session.setAttribute("game", game);
 		if (session.getAttribute("goblin") == null) {
 			Goblin g = new Goblin("goblin", game);
 			session.setAttribute("goblin", g);

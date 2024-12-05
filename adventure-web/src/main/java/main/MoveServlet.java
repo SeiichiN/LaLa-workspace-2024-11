@@ -25,7 +25,7 @@ public class MoveServlet extends HttpServlet {
 				HttpSession session = request.getSession();
 				Player player = (Player)session.getAttribute("player");
 				player.move(direction);
-				Game game = Game.getInstance();
+				Game game = (Game) session.getAttribute("game");
 				String chara = game.getCharacter(player.getY(), player.getX());
 				switch (chara) {
 					case "goblin", "dragon" -> {

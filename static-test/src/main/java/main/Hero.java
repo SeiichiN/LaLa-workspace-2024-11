@@ -7,7 +7,7 @@ public class Hero {
 	public static String getName() {
 		return name;
 	}
-	public static void setName(String name) {
+	public static synchronized void setName(String name) {
 		Hero.name = name;
 	}
 	public static int getHp() {

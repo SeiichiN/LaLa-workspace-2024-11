@@ -21,7 +21,10 @@ public class GameServlet extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		Game game = new Game();
+		Game game = (Game) session.getAttribute("game");
+		if (game == null) {
+			game = new Game();
+		}
 		session.setAttribute("game", game);
 		if (session.getAttribute("goblin") == null) {
 			Goblin g = new Goblin("goblin", game);
@@ -44,14 +47,15 @@ public class GameServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("name");
-		if (name != null && name.length() > 0) {
-			// Game.playerName = name; 
-			String message = "プレーヤーの名前を" + name + "に設定しました。";
-			request.setAttribute("message", message);
-			HttpSession session = request.getSession();
-			Player player = (Player) session.getAttribute("player");
-			player.setName(name);
+		if (name == null || name.length() == 0) {
+			response.sendRedirect("game");
+			return;
 		}
+		String message = "プレーヤーの名前を" + name + "に設定しました。";
+		request.setAttribute("message", message);
+		HttpSession session = request.getSession();
+		Player player = (Player) session.getAttribute("player");
+		player.setName(name);
 		request.getRequestDispatcher("main.jsp").forward(request, response);
 	}
 }

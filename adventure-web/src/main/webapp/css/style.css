@@ -66,6 +66,12 @@ td {
 	font-size: 0.8em;
 }
 
+.game-over {
+	font-size: 2em;
+	padding: 5px 8px;
+	border: solid 3px #aaa;
+}
+
 /*
  * aside
  */

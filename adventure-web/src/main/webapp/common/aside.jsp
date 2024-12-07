@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+    
 <aside>
 	<section>
 		<h3>移動</h3>
@@ -14,14 +16,16 @@
 			</div><!-- .button-area -->
 		</form>
 	</section>
-	<section>
-		<h3>初期設定</h3>
-		<form action="game" method="post">
-			<p>
-				プレーヤーの名前を決めてください。<br>
-				<input type="text" name="name">
-			</p>
-			<p><input type="submit" value="決定"></p>
-		</form>
-	</section>
+	<c:if test="${empty player.name}">
+		<section>
+			<h3>初期設定</h3>
+			<form action="game" method="post">
+				<p>
+					プレーヤーの名前を決めてください。<br>
+					<input type="text" name="name">
+				</p>
+				<p><input type="submit" value="決定"></p>
+			</form>
+		</section>
+	</c:if>
 </aside>

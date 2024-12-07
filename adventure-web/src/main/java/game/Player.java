@@ -8,7 +8,7 @@ public class Player extends GameLocation {
 	private String name;
 	private int hp;
 	private final int MAXAP = 20;
-	private final int MAXHP = 100;
+	public final int MAXHP = 100;
 	private List<Item> inventory = new ArrayList<>();
 	
 	public Player(Game game) {
@@ -100,7 +100,7 @@ public class Player extends GameLocation {
 		if (this.getY() >= Game.YSIZE) this.setY(Game.YSIZE - 1);
 	}
 
-	public	List<String> attack(Monster m) {
+	public List<String> attack(Monster m) {
 		List<String> msgList = new ArrayList<>();
 		if (this.hp <= 0) { return null; }
 		msgList.add(this.name + "の攻撃！");
@@ -110,6 +110,7 @@ public class Player extends GameLocation {
 			msgList.add(m.getType() + "に対して" + ap + "のダメージを与えた！");
 		} else {
 			msgList.add(m.getType() + "を倒した！");
+			this.getGame().getMap()[m.getY()][m.getX()] = ".";
 		}
 		return msgList;
 	}

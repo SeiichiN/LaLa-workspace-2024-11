@@ -2,6 +2,11 @@ package game;
 
 import java.util.Scanner;
 
+/**
+ * mapをインスタンスフィールドにしているので、
+ * アクセスしてくるユーザーそれぞれに個別のマップを
+ * 提供できる。
+ */
 public class Game {
 	public static final int YSIZE = 5;
 	public static final int XSIZE = 5;

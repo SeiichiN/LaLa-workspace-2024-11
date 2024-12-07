@@ -10,6 +10,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import game.Game;
+import game.Item;
+import game.Monster;
 import game.Player;
 
 @WebServlet("/move")
@@ -29,7 +31,15 @@ public class MoveServlet extends HttpServlet {
 				String chara = game.getCharacter(player.getY(), player.getX());
 				switch (chara) {
 					case "goblin", "dragon" -> {
+						Monster m = (Monster) session.getAttribute(chara);
 						request.setAttribute("monsterType", chara);
+						request.setAttribute("monster", m);
+					}
+					case "potion" -> {
+						Item item = (Item) session.getAttribute("potion");
+						String msg = item.getType() + "がある！";
+						request.setAttribute("message", msg);
+						request.setAttribute("item", item);
 					}
 				}
 			}

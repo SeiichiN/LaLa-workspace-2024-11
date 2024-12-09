@@ -8,7 +8,7 @@ public class Quest {
 	private final int PLUS = 10;
 	
 	public int work() {
-		System.out.print("1 2 3 --> select >");
+		System.out.print("1 2 3 --> select > ");
 		Scanner scan = new Scanner(System.in);
 		int num = scan.nextInt();
 		int com = (int)(Math.random() * 3) + 1;  // 1,2,3

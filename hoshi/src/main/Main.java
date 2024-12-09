@@ -7,7 +7,7 @@ public class Main {
 		Player player = new Player();
 		
 		while (true) {
-			player.doWord(quest);
+			player.doWard(quest);
 			if (player.count > 4) {
 				break;
 			}

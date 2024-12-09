@@ -5,7 +5,7 @@ public class Player {
 	int money;
 	int count;
 	
-	public void doWord(Quest quest) {
+	public void doWard(Quest quest) {
 		count++;
 		this.money += quest.work();
 		System.out.println("now > " + this.money);

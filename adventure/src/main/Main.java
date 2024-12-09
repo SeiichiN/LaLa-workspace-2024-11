@@ -25,8 +25,8 @@ public class Main {
 
 		outHere:
 		while (true) {
-			if (p.getGolds() == Game.AMOUNT) {
-				System.out.println("Goldが" + p.getGolds() + "になった。目的は達成した。");
+			if (p.getGold() == Game.AMOUNT) {
+				System.out.println("Goldが" + p.getGold() + "になった。目的は達成した。");
 				break;
 			}
 			if (p.getHp() <= 0) {

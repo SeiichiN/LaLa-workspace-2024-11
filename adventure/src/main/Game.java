@@ -89,9 +89,9 @@ public class Game {
 				}
 			}
 		}
-		if (m.getHp() <= 0) {
-			map[m.getY()][m.getX()] = ".";
-			p.setGolds(Game.REWARD);
- 		}
+//		if (m.getHp() <= 0) {
+//			map[m.getY()][m.getX()] = ".";
+//			p.setGolds(Game.REWARD);
+// 		}
 	}
 }

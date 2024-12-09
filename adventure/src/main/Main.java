@@ -51,7 +51,7 @@ public class Main {
 			case "goblin" -> { Game.buttle(p, g); }
 			case "dragon" -> { Game.buttle(p, d); }
 			case "potion" -> { p.take(po); }
-			case "Gold" -> { p.take(golds); }
+			// case "Gold" -> { p.take(golds); }
 			}
 		}
 		System.out.println("GAME OVER");

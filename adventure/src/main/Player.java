@@ -8,7 +8,7 @@ public class Player extends GameLocation {
 	private String name;
 	private int hp;
 	private List<Item> itemList = new ArrayList<>();
-	private List<Gold> golds = new ArrayList<>();
+	private int gold;
 	
 	public Player(String name) {
 		this.name = name;
@@ -47,14 +47,14 @@ public class Player extends GameLocation {
 		}
 	}
 	
-	public void take(Gold[] golds) {
-		String itemType = Game.map[this.getY()][this.getX()];
-		if (itemType.equals("gold")) {
-			this.gold += gold.getGold();
-			Game.map[this.getY()][this.getX()] = ".";
-			System.out.println("GOLDを" + gold.getGold() + "手に入れた。");
-		}
-	}
+//	public void take(Gold[] gold) {
+//		String itemType = Game.map[this.getY()][this.getX()];
+//		if (itemType.equals("gold")) {
+//			this.gold += gold.getGold();
+//			Game.map[this.getY()][this.getX()] = ".";
+//			System.out.println("GOLDを" + gold.getGold() + "手に入れた。");
+//		}
+//	}
 	
 	public void status() {
 		String text = "HP:" + this.getHp() + " 装備:";

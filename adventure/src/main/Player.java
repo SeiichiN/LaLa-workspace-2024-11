@@ -1,8 +1,12 @@
 package main;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Player extends GameLocation {
 	private String name;
 	private int hp;
+	private List<Item> itemList = new ArrayList<>();
 	
 	public Player(String name) {
 		this.name = name;

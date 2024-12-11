@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpSession;
 import game.Dragon;
 import game.Game;
 import game.Goblin;
+import game.NotEnter;
 import game.Player;
 import game.Potion;
 
@@ -26,6 +27,8 @@ public class GameServlet extends HttpServlet {
 			game = new Game();
 		}
 		session.setAttribute("game", game);
+		new NotEnter(game);
+		new NotEnter(game);
 		if (session.getAttribute("goblin") == null) {
 			Goblin g = new Goblin("goblin", game);
 			session.setAttribute("goblin", g);

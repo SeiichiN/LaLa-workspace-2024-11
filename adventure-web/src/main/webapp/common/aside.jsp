@@ -16,6 +16,23 @@
 			</div><!-- .button-area -->
 		</form>
 	</section>
+	<section>
+		<h3>状態</h3>
+		<div>
+			HP:<c:out value="${player.hp}"/>
+			持ち物:<br>
+			<form action="use" method="post">
+				<ul>
+				<c:forEach var="item" items="${player.inventory}">
+					<li><input type="radio" name="item" value="<c:out value="${item.type}"/>">
+					    <c:out value="${item.type}"/></li>
+				</c:forEach>
+				</ul>
+				<input type="submit" value="使う">
+				<input type="reset" value="解除"> 
+			</form>
+		</div>
+	</section>
 	<c:if test="${empty player.name}">
 		<section>
 			<h3>初期設定</h3>

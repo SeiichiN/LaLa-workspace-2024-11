@@ -33,15 +33,18 @@ public class TakeItemServlet extends HttpServlet {
 		if (choice.equals("take")) {
 			HttpSession session = request.getSession();
 			Item item = (Item) session.getAttribute(type);
-			if (item instanceof Potion potion) {
-				Player player = (Player) session.getAttribute("player");
-				player.setHp(player.getHp() + potion.getRp());
-				if (player.getHp() > player.MAXHP) { player.setHp(player.MAXHP); }
-				String msg = player.getName() + "はHPを回復した。";
-				request.setAttribute("message", msg);
-				Game game = (Game) session.getAttribute("game");
-				game.getMap()[player.getY()][player.getX()] = ".";
-			}
+			Player player = (Player) session.getAttribute("player");
+			player.getInventory().add(item);
+			String msg = item.getType() + "を袋に入れた。";
+			request.setAttribute("message", msg);
+			Game game = (Game) session.getAttribute("game");
+			game.getMap()[player.getY()][player.getX()] = ".";
+			
+			// if (item instanceof Potion potion) {
+				// player.setHp(player.getHp() + potion.getRp());
+				// if (player.getHp() > player.MAXHP) { player.setHp(player.MAXHP); }
+				// String msg = player.getName() + "はHPを回復した。";
+			// }
 		}
 		request.getRequestDispatcher("main.jsp").forward(request, response);
 	}

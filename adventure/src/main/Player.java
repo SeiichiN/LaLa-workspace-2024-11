@@ -1,6 +1,7 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -19,18 +20,34 @@ public class Player extends GameLocation {
 	public void use() {
 		System.out.print("持ち物:");
 		for (int i = 0; i < this.itemList.size(); i++) {
-			System.out.print(" [" + i+ "]:" + this.itemList.get(i));
+			System.out.print(" [" + i+ "]:" + this.itemList.get(i).getType());
 		}
-		System.out.print("どれを使いますか？ > ");
 		Scanner scan = new Scanner(System.in);
-		int num = scan.nextInt();
+		int num = 0;
+		do {
+			System.out.print(" どれを使いますか？ > ");
+			try {
+				num = scan.nextInt();
+			} catch (InputMismatchException e) {
+				return;
+			}
+		} while (num < 0 || num >= this.itemList.size());
 		Item item = this.itemList.get(num);
 		String itemType = item.getType();
 		switch (itemType) {
 		case "potion" -> { 
-			if (item instanceof Potion) {
-				Potion p = (Potion) item;
+			if (item instanceof Potion p) {
+				System.out.println(this.getName() + "は" + p.getType() + "を使った。");
+				System.out.println(this.getName() + "のHPが" + p.getRp() + "に回復した。");
 				this.setHp(p.getRp());
+				this.itemList.remove(p);
+			}
+		}
+		case "ether" -> {
+			if (item instanceof Ether e) {
+				System.out.println(this.name + "は" + e.getType() + "を使った。");
+				System.out.println("エーテル:" + e.getRmp());
+				this.itemList.remove(e);
 			}
 		}
 		}
@@ -47,21 +64,20 @@ public class Player extends GameLocation {
 		}
 	}
 	
-//	public void take(Gold[] gold) {
-//		String itemType = Game.map[this.getY()][this.getX()];
-//		if (itemType.equals("gold")) {
-//			this.gold += gold.getGold();
-//			Game.map[this.getY()][this.getX()] = ".";
-//			System.out.println("GOLDを" + gold.getGold() + "手に入れた。");
-//		}
-//	}
+	public void take(Gold gold) {
+		this.gold += gold.getGold();
+		Game.map[gold.getY()][gold.getX()] = ".";
+		System.out.println("GOLDを" + gold.getGold() + "手に入れた。");
+	}
 	
 	public void status() {
 		String text = "HP:" + this.getHp() + " 装備:";
 		for (Item i : itemList) {
 			text = text + i.getType() + ",";
 		}
+		text = " Gold:" + this.gold;
 		System.out.println(text);
+		this.use();
 	}
 	
 	public void attack(Monster m) {
@@ -76,6 +92,9 @@ public class Player extends GameLocation {
 		}
 		if (m.getHp() <= 0) {
 			System.out.println(m.getType() + "を倒した。");
+			System.out.println("報酬としてGoldを" + Game.REWARD + "手に入れた。");
+			this.gold += Game.REWARD;
+			Game.map[m.getY()][m.getX()] = ".";
 		}		
 	}
 	

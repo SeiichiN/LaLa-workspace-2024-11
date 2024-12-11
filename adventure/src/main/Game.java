@@ -26,11 +26,16 @@ public class Game {
 		System.out.println(str);
 	}
 	
-	public static void printMap() {
+	public static void printMap(Player p) {
 		for (int y = 0; y < YSIZE; y++) {
 			System.out.print("| ");
 			for (int x = 0; x < XSIZE; x++) {
-				System.out.print(map[y][x].charAt(0) + " | ");
+				if (y == p.getY() && x == p.getX()) {
+					System.out.print("*");
+				} else {
+					System.out.print(map[y][x].charAt(0));
+				}
+				System.out.print(" | ");
 			}
 			System.out.println();
 		}

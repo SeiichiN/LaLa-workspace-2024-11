@@ -2,6 +2,7 @@ package main;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Player extends GameLocation {
 	private String name;
@@ -12,6 +13,31 @@ public class Player extends GameLocation {
 		this.name = name;
 		this.hp = 100;
 		setLocation();
+	}
+	
+	public void take(Item item) {
+		System.out.print("取りますか？ (y/n) > ");
+		Scanner scan = new Scanner(System.in);
+		String s = scan.nextLine().toLowerCase();
+		if (s.equals("y")) {
+			itemList.add(item);
+			Game.map[item.getY()][item.getX()] = ".";
+		}
+	}
+	
+	public void use(Potion p) {
+		this.setHp(p.getRp());
+		System.out.println(this.getName() + "のHPが" + this.getHp() + "に回復した");
+	}
+	
+	public void printItemList() {
+		System.out.print("持ち物:");
+		for (int i = 0; i < itemList.size(); i++) {
+			System.out.print(" (" + i + ")" + itemList.get(i).getType());
+		}
+		System.out.println();
+		System.out.print("どれを使いますか？ > ");
+		
 	}
 	
 	public void attack(Monster m) {

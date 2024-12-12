@@ -9,7 +9,7 @@ pageContext.setAttribute("player_ch", player_ch);
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>ADVENTURE GAME</title>
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -38,9 +38,6 @@ pageContext.setAttribute("player_ch", player_ch);
 			<c:if test="${not empty message}">
 				<p><c:out value="${message}"/></p>
 			</c:if>
-			<c:if test="${not empty monsterType}">
-				<p><c:out value="${monsterType}"/>が現れた。</p>
-			</c:if>
 			<c:if test="${not empty playerMsgList}">
 				<ul>
 				<c:forEach var="playerMsg" items="${playerMsgList}">
@@ -62,11 +59,11 @@ pageContext.setAttribute("player_ch", player_ch);
 					<button type="submit" name="choice" value="not-take">そのまま</button>
 				</form>
 			</c:if>
-			<c:if test="${not empty monsterType}">
-				<p>プレーヤー：${player.hp} ${monsterType}:${monster.hp}</p>
+			<c:if test="${player.monster.hp > 0}">
+				<p>プレーヤー：${player.hp} ${player.monster.type}:${player.monster.hp}</p>
 				<c:if test="${player.hp > 0}">
 					<form action="buttle" method="post">
-						<input type="hidden" name="type" value="${monsterType}">
+						<input type="hidden" name="type" value="${player.monster.type}">
 						<button type="submit" name="choice" value="fight">戦う</button>
 						<button type="submit" name="choice" value="run">逃げる</button>
 					</form>
@@ -74,6 +71,11 @@ pageContext.setAttribute("player_ch", player_ch);
 			</c:if>
 			<c:if test="${player.hp < 0}">
 				<p class="game-over">GAME OVER</p>
+				<p>
+					<form action="retry" method="post">
+						<button type="submit" name="retry" value="yes">再挑戦</button>
+					</form>
+				</p>
 			</c:if>
 				
 		</section>

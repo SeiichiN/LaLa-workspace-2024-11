@@ -8,13 +8,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+
 import game.Dragon;
 import game.Game;
 import game.Goblin;
-import game.Item;
 import game.Monster;
 import game.Player;
-import game.Potion;
 
 @WebServlet("/move")
 public class MoveServlet extends HttpServlet {
@@ -28,21 +27,27 @@ public class MoveServlet extends HttpServlet {
 			case "w","e","n","s" -> {
 				HttpSession session = request.getSession();
 				Player player = (Player)session.getAttribute("player");
-				player.move(direction);
+				String msg = player.move(direction);
+				request.setAttribute("message", msg);
 				Game game = player.getGame();
 				String chara = game.getCharacter(player.getY(), player.getX());
+				Monster backMonster = player.getBackMonster();
 				switch (chara) {
 					case "goblin" -> {
 						request.setAttribute("monsterType", chara);
-						session.setAttribute("monster", new Goblin("goblin"));
+						if (player.getBackMonster() == null) {
+							player.setBackMonster(new Goblin("goblin"));
+						}
 					}
 					case "dragon" -> {
 						request.setAttribute("monsterType", chara);
-						session.setAttribute("monster", new Dragon("dragon"));
+						if (player.getBackMonster() == null) {
+							player.setBackMonster(new Dragon("dragon"));
+						}
 					}
 					case "potion" -> {
-						String msg = chara + "がある！";
-						request.setAttribute("message", msg);
+						// String msg = chara + "がある！";
+						// request.setAttribute("message", msg);
 						request.setAttribute("item", "potion");
 					}
 				}
@@ -50,5 +55,6 @@ public class MoveServlet extends HttpServlet {
 		}
 		request.getRequestDispatcher("main.jsp").forward(request, response);
 	}
+
 
 }

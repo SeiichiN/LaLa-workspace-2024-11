@@ -17,7 +17,10 @@ public class Game {
 			{".", ".", ".", ".", "."},
 			{".", ".", ".", ".", "."},
 			{".", ".", ".", ".", "."}
-	}; 
+	};
+	// プレーヤーがモンスターに出会ったら、
+	// この場所に保存しておく。
+	private Monster[][] backMonster = new Monster[YSIZE][XSIZE];
 	
 	public Game() {}
 	
@@ -86,5 +89,9 @@ public class Game {
 
 	public String[][] getMap() {
 		return map;
+	}
+
+	public Monster[][] getBackMonster() {
+		return backMonster;
 	}
 }

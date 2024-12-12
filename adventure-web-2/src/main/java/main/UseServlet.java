@@ -1,13 +1,14 @@
 package main;
 
+import java.io.IOException;
+import java.util.List;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
-import java.io.IOException;
 
 import game.Item;
 import game.Player;
@@ -28,16 +29,20 @@ public class UseServlet extends HttpServlet {
 			return;
 		}
 		HttpSession session = request.getSession();
-		Item item = (Item) session.getAttribute(itemType);
 		if (itemType.equals("potion")) {
-			if (item instanceof Potion potion) {
-				Player player = (Player) session.getAttribute("player");
-				player.setHp(player.getHp() + potion.getRp());
-				if (player.getHp() > player.MAXHP) { player.setHp(player.MAXHP); }
-				String msg = player.getName() + "は" + item.getType() + "を使った。";
-				request.setAttribute("message", msg);
-				player.getInventory().remove(potion);
+			Player player = (Player) session.getAttribute("player");
+			Potion potion = null;
+			List<Item> inventory = player.getInventory();
+			for (Item item : inventory) {
+				if (item instanceof Potion p) {
+					potion = p;
+				}
 			}
+			player.setHp(player.getHp() + potion.getRp());
+			if (player.getHp() > player.MAXHP) { player.setHp(player.MAXHP); }
+			String msg = player.getName() + "は" + potion.getType() + "を使った。";
+			request.setAttribute("message", msg);
+			player.getInventory().remove(potion);
 		}
 		
 		request.getRequestDispatcher("main.jsp").forward(request, response);

@@ -18,9 +18,9 @@
 	</section>
 	<section>
 		<h3>状態</h3>
-		<div>
-			HP:<c:out value="${player.hp}"/>
-			持ち物:<br>
+		<div class="status">
+			<strong>HP:</strong><c:out value="${player.hp}"/><br>
+			<strong>持ち物:</strong><br>
 			<form action="use" method="post">
 				<ul>
 				<c:forEach var="item" items="${player.inventory}">

@@ -20,7 +20,7 @@ public class Player extends GameLocation {
 		this.hp = 100;
 		this.setLocation();
 	}
-	public void look() {
+	public String look() {
 		System.out.print(this.name + "[" + this.getY() + ":" + this.getX() + "] ");
 		String thing = this.getGame().getMap()[this.getY()][this.getX()];
 		String msg = switch (thing) {
@@ -29,7 +29,7 @@ public class Player extends GameLocation {
 			case "potion" -> "ポーションがある！";
 			default -> "何もありません。";
 		};
-		System.out.println(msg);
+		return msg;
 	}
 	
 	public void status() {
@@ -66,7 +66,7 @@ public class Player extends GameLocation {
 		}
 	}
 
-	public void move(String dir) {
+	public String move(String dir) {
 		int _y = this.getY();
 		int _x = this.getX();
 		switch (dir) {
@@ -78,11 +78,11 @@ public class Player extends GameLocation {
 		if (this.getGame().getMap()[this.getY()][this.getX()].equals("#")) {
 			this.setY(_y);
 			this.setX(_x);
-			System.out.println("そちらには進めません。");
-			return;
+			return "そちらには進めません。";
 		}
-		this.look();
+		return this.look();
 	}
+		
 	public void moveLeft() {
 		this.setX(this.getX() - 1);
 		if (this.getX() < 0) this.setX(0);
@@ -138,5 +138,13 @@ public class Player extends GameLocation {
 	}
 	public List<Item> getInventory() {
 		return inventory;
+	}
+	
+	public Monster getBackMonster() {
+		return this.getGame().getBackMonster()[this.getY()][this.getX()];
+	}
+	
+	public void setBackMonster(Monster monster) {
+		this.getGame().getBackMonster()[this.getY()][this.getX()] = monster;
 	}
 }

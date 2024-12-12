@@ -16,6 +16,7 @@ public class Main {
 		Dragon d = new Dragon("dragon", "炎", 33);
 		d.setAttackText(d.getType() + "は口から" + d.getWeapon() + "を噴き出した！");
 		Potion po = new Potion("potion");
+		Ether e = new Ether("ether");
 		Player p = new Player(playerName);
 		p.look();
 		Gold[] golds = new Gold[5];
@@ -51,6 +52,7 @@ public class Main {
 			case "goblin" -> { Game.buttle(p, g); }
 			case "dragon" -> { Game.buttle(p, d); }
 			case "potion" -> { p.take(po); }
+			case "ether" -> { p.take(e); }
 			// case "Gold" -> { p.take(golds); }
 			}
 		}

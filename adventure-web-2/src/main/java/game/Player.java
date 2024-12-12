@@ -10,6 +10,7 @@ public class Player extends GameLocation {
 	private final int MAXAP = 20;
 	public final int MAXHP = 100;
 	private List<Item> inventory = new ArrayList<>();
+	private Monster monster;
 	
 	public Player(Game game) {
 		this("", game);
@@ -146,5 +147,11 @@ public class Player extends GameLocation {
 	
 	public void setBackMonster(Monster monster) {
 		this.getGame().getBackMonster()[this.getY()][this.getX()] = monster;
+	}
+	public Monster getMonster() {
+		return monster;
+	}
+	public void setMonster(Monster monster) {
+		this.monster = monster;
 	}
 }

@@ -4,11 +4,15 @@ import java.io.IOException;
 
 public class Main {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		
-		throw new IOException("IOエラー");
+		try {
+			throw new IOException("IOエラー");
+		} catch (IOException e) {
+			System.out.println(e.getMessage() + "です");
+		}
 		
-		// System.out.println("処理終了");
+		System.out.println("処理終了");
 	}
 
 }

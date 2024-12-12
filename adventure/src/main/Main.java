@@ -53,10 +53,23 @@ public class Main {
 			case "dragon" -> { Game.buttle(p, d); }
 			case "potion" -> { p.take(po); }
 			case "ether" -> { p.take(e); }
-			// case "Gold" -> { p.take(golds); }
+			case "Gold" -> {
+				Gold gold = pickupGold(golds, p);
+				p.take(gold); 
+				}
 			}
 		}
 		System.out.println("GAME OVER");
+	}
+	
+	public static Gold pickupGold(Gold[] golds, Player p) {
+		Gold gold = null;
+		for (Gold g : golds) {
+			if (g.getY() == p.getY() && g.getX() == p.getX()) {
+				gold = g;
+			}
+		}
+		return gold;
 	}
 
 }

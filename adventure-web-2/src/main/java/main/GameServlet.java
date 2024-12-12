@@ -22,32 +22,26 @@ public class GameServlet extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		Game game = (Game) session.getAttribute("game");
-		if (game == null) {
-			game = new Game();
-		}
-		session.setAttribute("game", game);
-		new NotEnter(game);
-		new NotEnter(game);
-		if (session.getAttribute("goblin") == null) {
-			Goblin g = new Goblin("goblin", game);
-			session.setAttribute("goblin", g);
-		}
-		if (session.getAttribute("dragon") == null) {
-			Dragon d = new Dragon("dragon", game);
-			session.setAttribute("dragon", d);
-		}
-		if (session.getAttribute("potion") == null) {
-			Potion po = new Potion("potion", game);
-			session.setAttribute("potion", po);
-		}
-		if (session.getAttribute("player") == null) {
-			Player p = new Player(game);
-			session.setAttribute("player", p);
+		Player player = (Player) session.getAttribute("player");
+		if (player == null) {
+			Game game = new Game();
+			setCharacter(game);
+			player = new Player(game);
+			session.setAttribute("player", player);
 		}
 		request.getRequestDispatcher("main.jsp").forward(request, response);
 	}
 
+	private void setCharacter(Game game) {
+		game.setLocation("goblin");
+		game.setLocation("dragon");
+		game.setLocation("potion");
+		game.setLocation("ether");
+		game.setLocation("Gold");
+		game.setLocation("#");
+		game.setLocation("#");
+	}
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("name");
 		if (name == null || name.length() == 0) {

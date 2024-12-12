@@ -1,5 +1,6 @@
 package game;
 
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -19,6 +20,18 @@ public class Game {
 	}; 
 	
 	public Game() {}
+	
+	public void setLocation(String character) {
+		Random rnd = new Random();
+		int y = 0;
+		int x = 0;
+		do {
+			y = rnd.nextInt(Game.YSIZE);
+			x = rnd.nextInt(Game.XSIZE);
+		} while (!(this.getMap())[y][x].equals("."));
+		this.getMap()[y][x] = character;
+	}
+
 	
 	public void printMap() {
 		for (int y = 0; y < YSIZE; y++) {
@@ -43,7 +56,7 @@ public class Game {
 			if (select.equals("q")) { return; }
 			p.attack(m);
 			if (m.getHp() <= 0) { 
-				map[m.getY()][m.getX()]= "."; 
+				map[p.getY()][p.getX()]= "."; 
 				break; 
 			}
 			m.attack(p);

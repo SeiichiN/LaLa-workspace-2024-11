@@ -32,12 +32,15 @@ public class TakeItemServlet extends HttpServlet {
 		}
 		if (choice.equals("take")) {
 			HttpSession session = request.getSession();
-			Item item = (Item) session.getAttribute(type);
+			Item item = null;
+			if (type.equals("potion")) {
+				item = new Potion("potion");
+			}
 			Player player = (Player) session.getAttribute("player");
 			player.getInventory().add(item);
 			String msg = item.getType() + "を袋に入れた。";
 			request.setAttribute("message", msg);
-			Game game = (Game) session.getAttribute("game");
+			Game game = player.getGame();
 			game.getMap()[player.getY()][player.getX()] = ".";
 			
 			// if (item instanceof Potion potion) {

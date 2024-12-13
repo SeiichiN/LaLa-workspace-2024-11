@@ -3,7 +3,7 @@ package main;
 public class Main {
 
 	public static void main(String[] args) {
-		boolean DEBUG = true;
+		boolean DEBUG = false;
 		Quiz quiz = new Quiz();
 		char[] num = quiz.mkNum();
 		if (DEBUG) {

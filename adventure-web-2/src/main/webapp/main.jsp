@@ -60,13 +60,15 @@ pageContext.setAttribute("player_ch", player_ch);
 				</form>
 			</c:if>
 			<c:if test="${player.monster.hp > 0}">
-				<p>プレーヤー：${player.hp} ${player.monster.type}:${player.monster.hp}</p>
-				<c:if test="${player.hp > 0}">
-					<form action="buttle" method="post">
-						<input type="hidden" name="type" value="${player.monster.type}">
-						<button type="submit" name="choice" value="fight">戦う</button>
-						<button type="submit" name="choice" value="run">逃げる</button>
-					</form>
+				<c:if test="${not empty monsterType}">
+					<p>プレーヤー：${player.hp} ${player.monster.type}:${player.monster.hp}</p>
+					<c:if test="${player.hp > 0}">
+						<form action="buttle" method="post">
+							<input type="hidden" name="type" value="${player.monster.type}">
+							<button type="submit" name="choice" value="fight">戦う</button>
+							<button type="submit" name="choice" value="run">逃げる</button>
+						</form>
+					</c:if>
 				</c:if>
 			</c:if>
 			<c:if test="${player.hp < 0}">

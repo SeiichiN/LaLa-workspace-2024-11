@@ -22,7 +22,7 @@ public class Player extends GameLocation {
 		this.setLocation();
 	}
 	public String look() {
-		System.out.print(this.name + "[" + this.getY() + ":" + this.getX() + "] ");
+		// System.out.println(this.name + "[" + this.getY() + ":" + this.getX() + "] ");
 		String thing = this.getGame().getMap()[this.getY()][this.getX()];
 		String msg = switch (thing) {
 			case "goblin" -> "ゴブリンが現れた！";
@@ -112,6 +112,7 @@ public class Player extends GameLocation {
 		} else {
 			msgList.add(m.getType() + "を倒した！");
 			this.getGame().getMap()[this.getY()][this.getX()] = ".";
+			this.setBackMonster(null);
 		}
 		return msgList;
 	}

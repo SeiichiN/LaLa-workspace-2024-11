@@ -20,13 +20,13 @@ public class ButtleServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String choice = request.getParameter("choice");
-		// String monsterType = request.getParameter("type");
+		String monsterType = request.getParameter("type");
 		List<String> playerMsgList = new ArrayList<>();
 		HttpSession session = request.getSession();
 		Player player = (Player) session.getAttribute("player");
 		switch (choice) {
 		case "fight" -> {
-			Monster monster = player.getBackMonster();
+			Monster monster = player.getMonster();
 			playerMsgList = player.attack(monster);
 			if (monster.getHp() <= 0) break;
 			List<String> monsterMsgList = monster.attack(player);
@@ -41,6 +41,7 @@ public class ButtleServlet extends HttpServlet {
 		}
 		}
 		request.setAttribute("playerMsgList", playerMsgList);
+		request.setAttribute("monsterType", monsterType);
 		request.getRequestDispatcher("main.jsp").forward(request, response);
 	}
 

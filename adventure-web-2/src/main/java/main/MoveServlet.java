@@ -21,7 +21,7 @@ public class MoveServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String s = request.getParameter("direction");
-		System.out.println(s);
+		// System.out.println(s);
 		String direction = request.getParameter("direction").trim();
 		switch (direction) {
 			case "w","e","n","s" -> {
@@ -31,19 +31,35 @@ public class MoveServlet extends HttpServlet {
 				request.setAttribute("message", msg);
 				Game game = player.getGame();
 				String chara = game.getCharacter(player.getY(), player.getX());
-				Monster backMonster = player.getBackMonster();
+				// Monster backMonster = player.getBackMonster();
 				switch (chara) {
 					case "goblin" -> {
 						request.setAttribute("monsterType", chara);
+						Goblin goblin = null;
 						if (player.getBackMonster() == null) {
-							player.setBackMonster(new Goblin("goblin"));
+							goblin = new Goblin("goblin");
+							player.setBackMonster(goblin);
+						} else {
+							Monster m = player.getBackMonster();
+							if (m instanceof Goblin g) {
+								goblin = g;
+							}
 						}
+						player.setMonster(goblin);
 					}
 					case "dragon" -> {
 						request.setAttribute("monsterType", chara);
+						Dragon dragon = null;
 						if (player.getBackMonster() == null) {
-							player.setBackMonster(new Dragon("dragon"));
+							dragon = new Dragon("dragon");
+							player.setBackMonster(dragon);
+						} else {
+							Monster m = player.getBackMonster();
+							if (m instanceof Dragon d) {
+								dragon = d;
+							}
 						}
+						player.setMonster(dragon);
 					}
 					case "potion" -> {
 						// String msg = chara + "がある！";

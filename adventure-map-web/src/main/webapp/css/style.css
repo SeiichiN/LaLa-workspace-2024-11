@@ -1,0 +1,99 @@
+@charset "UTF-8";
+
+body, h1, h2, h3, p, ul {
+	margin: 0;
+}
+
+ul {
+	padding: 0;
+	list-style-type: none;
+}
+
+a {
+	color: #000;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #000;
+	text-decoration: underline;
+}
+
+.center-align {
+	width: 70%;
+	margin: 0 auto;
+}
+
+header, 
+footer {
+	background-color: lightblue;
+	padding: 10px 0;
+}
+
+header {
+	border-bottom: lightgreen 1px solid;
+	margin-bottom: 20px;
+}
+
+.header-inn {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+footer {
+	text-align: center;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+}
+
+.container {
+	display: flex;
+	justify-content: space-between;
+}
+
+table {
+	border-collapse: collapse;
+}
+td {
+	border: solid 1px #aaa;
+	width: 22px;
+	height: 22px;
+}
+
+.player-ch {
+	font-size: 0.8em;
+}
+
+.game-over {
+	font-size: 2em;
+	padding: 5px 8px;
+	border: solid 3px #aaa;
+}
+
+/*
+ * aside
+ */
+.button-area {
+	width: 100px;
+	display: flex;
+	flex-direction: column;
+}
+
+.button-area .btn {
+	text-align: center;
+}
+
+.lr-btn {
+	display: flex;
+}
+
+.lr-btn button {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.status {
+	margin-left: 1em;
+}

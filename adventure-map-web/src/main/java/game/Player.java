@@ -8,14 +8,15 @@ import java.util.Scanner;
 public class Player extends GameLocation {
 	private String name;
 	private int hp;
-	public static final int MAXHP = 100;
 	private List<Item> itemList = new ArrayList<>();
 	private int gold;
+	public final int MAXHP;
 	
 	public Player(String name, Game game) {
 		super(game);
 		this.name = name;
-		this.hp = MAXHP;
+		this.hp = 100;
+		this.MAXHP = 100;
 	}
 	
 	public void use() {
@@ -37,21 +38,21 @@ public class Player extends GameLocation {
 		Item item = this.itemList.get(num);
 		String itemType = item.getType();
 		switch (itemType) {
-		case "potion" -> { 
-			if (item instanceof Potion p) {
-				System.out.println(this.getName() + "は" + p.getType() + "を使った。");
-				System.out.println(this.getName() + "のHPが" + p.getRp() + "に回復した。");
-				this.setHp(p.getRp());
-				this.itemList.remove(p);
+			case "potion" -> { 
+				if (item instanceof Potion p) {
+					System.out.println(this.getName() + "は" + p.getType() + "を使った。");
+					System.out.println(this.getName() + "のHPが" + p.getRp() + "に回復した。");
+					this.setHp(p.getRp());
+					this.itemList.remove(p);
+				}
 			}
-		}
-		case "ether" -> {
-			if (item instanceof Ether e) {
-				System.out.println(this.name + "は" + e.getType() + "を使った。");
-				System.out.println("エーテル:" + e.getRmp());
-				this.itemList.remove(e);
+			case "ether" -> {
+				if (item instanceof Ether e) {
+					System.out.println(this.name + "は" + e.getType() + "を使った。");
+					System.out.println("エーテル:" + e.getRmp());
+					this.itemList.remove(e);
+				}
 			}
-		}
 		}
 		this.getGame().getMap()[item.getY()][item.getX()] = null;
 	}
@@ -95,28 +96,24 @@ public class Player extends GameLocation {
 		}
 		if (m.getHp() <= 0) {
 			msgList.add(m.getType() + "を倒した。");
-			msgList.add("報酬としてGoldを" + Game.REWARD + "手に入れた。");
-			this.setGold(this.getGold() + Game.REWARD);
+			msgList.add("報酬としてGoldを" + this.getGame().REWARD + "手に入れた。");
+			this.gold += this.getGame().REWARD;
 			this.getGame().getMap()[m.getY()][m.getX()] = null;
-		}		
+		}
 		return msgList;
 	}
 	
 	public String look() {
-		SetOnMap soMapObj = this.getGame().getMap()[this.getY()][this.getX()];
-		if (soMapObj == null) { return "何もありません。"; }
-		String thing = soMapObj.toString();
-		String msg = switch (thing) {
-			case "goblin" -> "ゴブリンが現れた！";
-			case "dragon" -> "ドラゴンが現れた！";
-			case "potion" -> "ポーションがある！";
-			case "ether" -> "エーテルがある！";
-			case "Gold" -> "ゴールドがある！";
-			default -> "何もありません。";
-		};
+		// System.out.print("[" + getY() + ":" + getX() + "] ");
+		SetOnMap soMapObj = this.getGame().getMap()[getY()][getX()];
+		String msg = null;
+		if (soMapObj == null) {
+			msg = "何も見当たらない";
+		} else {
+			msg = soMapObj.getType();
+		}
 		return msg;
 	}
-
 	
 	public String toString() {
 		return name + " HP:" + hp;
@@ -154,7 +151,7 @@ public class Player extends GameLocation {
 	}
 	private void moveRight() {
 		this.setX(this.getX() + 1);
-		if (this.getX() >= Game.XSIZE) { this.setX(Game.XSIZE - 1);	}
+		if (this.getX() >= this.getGame().XSIZE) { this.setX(this.getGame().XSIZE - 1);	}
 	}
 	private void moveUp() {
 		this.setY(this.getY() - 1);
@@ -162,7 +159,7 @@ public class Player extends GameLocation {
 	}
 	private void moveDown() {
 		this.setY(this.getY() + 1);
-		if (this.getY() >= Game.YSIZE) { this.setY(Game.YSIZE - 1);	}
+		if (this.getY() >= this.getGame().YSIZE) { this.setY(this.getGame().YSIZE - 1);	}
 	}
 
 	public List<Item> getItemList() {

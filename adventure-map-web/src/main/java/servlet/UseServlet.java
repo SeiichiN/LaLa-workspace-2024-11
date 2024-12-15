@@ -39,7 +39,7 @@ public class UseServlet extends HttpServlet {
 				}
 			}
 			player.setHp(player.getHp() + potion.getRp());
-			if (player.getHp() > Player.MAXHP) { player.setHp(Player.MAXHP); }
+			if (player.getHp() > player.MAXHP) { player.setHp(player.MAXHP); }
 			String msg = player.getName() + "は" + potion.getType() + "を使った。";
 			request.setAttribute("message", msg);
 			player.getItemList().remove(potion);

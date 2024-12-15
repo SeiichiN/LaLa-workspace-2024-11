@@ -1,4 +1,4 @@
-package main;
+package main.java;
 
 public abstract class SetOnMap extends GameLocation {
 	private String type;

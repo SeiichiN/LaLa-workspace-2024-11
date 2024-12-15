@@ -3,11 +3,25 @@ package game;
 import java.util.Scanner;
 
 public class Game {
-	public static final int YSIZE = 5;
-	public static final int XSIZE = 5;
-	public static final int REWARD = 50;
-	public static final int AMOUNT = 200;
-	private SetOnMap[][] map = new SetOnMap[YSIZE][XSIZE];
+	public final int YSIZE;
+	public final int XSIZE;
+	public final int REWARD;
+	public final int AMOUNT;
+	private SetOnMap[][] map;
+	private int mission;
+	
+	public Game(int ysize, int xsize, int reward, int amount, int mission) {
+		this.YSIZE = ysize;
+		this.XSIZE = xsize;
+		this.REWARD = reward;
+		this.AMOUNT = amount;
+		this.mission = mission;
+		this.map = new SetOnMap[ysize][xsize];
+	}
+	
+	public Game() {
+		this(5, 5, 50, 200, 1);
+	}
 	
 	public static void opening() {
 		// p.68 テキストブロック
@@ -96,6 +110,30 @@ public class Game {
 
 	public SetOnMap[][] getMap() {
 		return map;
+	}
+
+	public int getAMOUNT() {
+		return AMOUNT;
+	}
+
+	public int getMission() {
+		return mission;
+	}
+
+	public void setMission(int mission) {
+		this.mission = mission;
+	}
+
+	public int getYSIZE() {
+		return YSIZE;
+	}
+
+	public int getXSIZE() {
+		return XSIZE;
+	}
+
+	public int getREWARD() {
+		return REWARD;
 	}
 
 }

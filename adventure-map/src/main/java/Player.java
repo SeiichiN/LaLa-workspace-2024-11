@@ -1,4 +1,4 @@
-package main;
+package main.java;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -93,8 +93,8 @@ public class Player extends GameLocation {
 		}
 		if (m.getHp() <= 0) {
 			System.out.println(m.getType() + "を倒した。");
-			System.out.println("報酬としてGoldを" + this.getGame().REWARD + "手に入れた。");
-			this.gold += this.getGame().REWARD;
+			System.out.println("報酬としてGoldを" + m.getGold() + "手に入れた。");
+			this.setGold(this.getGold() + m.getGold());
 			this.getGame().getMap()[m.getY()][m.getX()] = null;
 		}		
 	}

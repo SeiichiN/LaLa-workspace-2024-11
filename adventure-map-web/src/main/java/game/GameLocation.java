@@ -15,8 +15,8 @@ public abstract class GameLocation {
 	public void setLocation() {
 		Random rnd = new Random();
 		do {
-			this.y = rnd.nextInt(Game.YSIZE);
-			this.x = rnd.nextInt(Game.XSIZE);
+			this.y = rnd.nextInt(game.YSIZE);
+			this.x = rnd.nextInt(game.XSIZE);
 		} while (game.getMap()[this.y][this.x] != null);
 	}
 	

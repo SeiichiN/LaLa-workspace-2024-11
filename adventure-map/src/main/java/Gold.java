@@ -1,4 +1,4 @@
-package main;
+package main.java;
 
 public class Gold extends SetOnMap {
 	private int gold; 

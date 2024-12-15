@@ -1,4 +1,4 @@
-package main;
+package main.java;
 
 public class Potion extends Item {
 	private int rp;

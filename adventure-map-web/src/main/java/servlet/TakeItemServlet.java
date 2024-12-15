@@ -42,7 +42,7 @@ public class TakeItemServlet extends HttpServlet {
 					player.getItemList().add(item);
 					msg = item.getType() + "を袋に入れた。";
 				} else if (soMapObj instanceof Gold gold) {
-					player.setGold(gold.getGold());
+					player.setGold(player.getGold() + gold.getGold());
 					msg = gold.getType() + "を" + gold.getGold() + "手に入れた。";
 				}
 				request.setAttribute("message", msg);

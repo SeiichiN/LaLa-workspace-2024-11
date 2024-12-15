@@ -1,6 +1,16 @@
-package main;
+package test;
 
 import java.util.Scanner;
+
+import game.Dragon;
+import game.Ether;
+import game.Game;
+import game.Goblin;
+import game.Gold;
+import game.NotEnter;
+import game.Player;
+import game.Potion;
+import game.SetOnMap;
 
 public class Main {
 	
@@ -12,7 +22,7 @@ public class Main {
 	 * @return
 	 */
 	private static Game startGame() {
-		Game game = new Game(10, 10, 50, 300);
+		Game game = new Game(10, 10, 50, 300, 1);
 		
 		new NotEnter(game);
 		new NotEnter(game);

@@ -1,24 +1,24 @@
-package main;
+package main.java;
 
 import java.util.Scanner;
 
 public class Game {
 	public final int YSIZE;
 	public final int XSIZE;
-	public final int REWARD;
 	public final int AMOUNT;
 	private SetOnMap[][] map;
+	public final int STAGE;
 	
-	public Game(int ysize, int xsize, int reward, int amount) {
+	public Game(int ysize, int xsize, int amount, int stage) {
 		this.YSIZE = ysize;
 		this.XSIZE = xsize;
-		this.REWARD = reward;
 		this.AMOUNT = amount;
+		this.STAGE = stage;
 		this.map = new SetOnMap[ysize][xsize];
 	}
 	
 	public Game() {
-		this(5, 5, 50, 200);
+		this(5, 5, 200, 1);
 	}
 	
 	public static void opening() {

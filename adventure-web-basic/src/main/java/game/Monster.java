@@ -1,4 +1,4 @@
-package main;
+package game;
 
 public abstract class Monster extends GameLocation 
                               implements SetSelfOnMap {

@@ -3,11 +3,23 @@ package main;
 import java.util.Scanner;
 
 public class Game {
-	public static final int YSIZE = 5;
-	public static final int XSIZE = 5;
-	public static final int REWARD = 50;
-	public static final int AMOUNT = 200;
-	private SetOnMap[][] map = new SetOnMap[YSIZE][XSIZE];
+	public final int YSIZE;
+	public final int XSIZE;
+	public final int REWARD;
+	public final int AMOUNT;
+	private SetOnMap[][] map;
+	
+	public Game(int ysize, int xsize, int reward, int amount) {
+		this.YSIZE = ysize;
+		this.XSIZE = xsize;
+		this.REWARD = reward;
+		this.AMOUNT = amount;
+		this.map = new SetOnMap[ysize][xsize];
+	}
+	
+	public Game() {
+		this(5, 5, 50, 200);
+	}
 	
 	public static void opening() {
 		// p.68 テキストブロック

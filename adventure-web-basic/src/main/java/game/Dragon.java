@@ -1,19 +1,20 @@
-package main;
+package game;
 
-public class Goblin extends Monster {
-	public Goblin(String type) {
+public class Dragon extends Monster {
+	public Dragon(String type) {
 		super(type);
 	}
 
 	@Override
 	public void attack(Player p) {
-		if (this.getHp() <= 0) { return; }		
-		System.out.println(this.getType() + "は斧で切りつけた。");
-		int ap = (int)Math.floor(Math.random() * 11);
+		if (this.getHp() <= 0) { return; }
+		System.out.println(this.getType() + "は口から火を噴いた。");
+		int ap = (int)Math.floor(Math.random() * 31);
 		p.setHp(p.getHp() - ap);
 		System.out.println(p.getName() + "に" + ap + "ポイントのダメージ");
 		if (p.getHp() <= 0) {
 			System.out.println(p.getName() + "を倒した。");
 		}
 	}
+
 }

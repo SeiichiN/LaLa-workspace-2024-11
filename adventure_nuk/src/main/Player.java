@@ -11,10 +11,10 @@ public class Player extends GameLocation {
 	private List<Item> itemList = new ArrayList<>();
 	private int gold;
 	
-	public Player(String name, Game game) {
-		super(game);
+	public Player(String name) {
 		this.name = name;
 		this.hp = 100;
+		setLocation();
 	}
 	
 	public void use() {
@@ -27,32 +27,31 @@ public class Player extends GameLocation {
 		do {
 			System.out.print(" どれを使いますか？ > ");
 			try {
-				String _num = scan.nextLine();
-				num = Integer.parseInt(_num);
-			} catch (NumberFormatException e) {
+				num = scan.nextInt();
+			} catch (InputMismatchException e) {
 				return;
 			}
 		} while (num < 0 || num >= this.itemList.size());
 		Item item = this.itemList.get(num);
 		String itemType = item.getType();
 		switch (itemType) {
-			case "potion" -> { 
-				if (item instanceof Potion p) {
-					System.out.println(this.getName() + "は" + p.getType() + "を使った。");
-					System.out.println(this.getName() + "のHPが" + p.getRp() + "に回復した。");
-					this.setHp(p.getRp());
-					this.itemList.remove(p);
-				}
-			}
-			case "ether" -> {
-				if (item instanceof Ether e) {
-					System.out.println(this.name + "は" + e.getType() + "を使った。");
-					System.out.println("エーテル:" + e.getRmp());
-					this.itemList.remove(e);
-				}
+		case "potion" -> { 
+			if (item instanceof Potion p) {
+				System.out.println(this.getName() + "は" + p.getType() + "を使った。");
+				System.out.println(this.getName() + "のHPが" + p.getRp() + "に回復した。");
+				this.setHp(p.getRp());
+				this.itemList.remove(p);
 			}
 		}
-		this.getGame().getMap()[item.getY()][item.getX()] = null;
+		case "ether" -> {
+			if (item instanceof Ether e) {
+				System.out.println(this.name + "は" + e.getType() + "を使った。");
+				System.out.println("エーテル:" + e.getRmp());
+				this.itemList.remove(e);
+			}
+		}
+		}
+		Game.map[item.getY()][item.getX()] = ".";
 	}
 	
 	public void take(Item item) {
@@ -61,13 +60,13 @@ public class Player extends GameLocation {
 		String str = scan.nextLine().toLowerCase();
 		if (str.equals("y")) {
 			this.itemList.add(item);
-			this.getGame().getMap()[this.getY()][this.getX()] = null;
+			Game.map[this.getY()][this.getX()] = ".";
 		}
 	}
 	
 	public void take(Gold gold) {
 		this.gold += gold.getGold();
-		this.getGame().getMap()[gold.getY()][gold.getX()] = null;
+		Game.map[gold.getY()][gold.getX()] = ".";
 		System.out.println("GOLDを" + gold.getGold() + "手に入れた。");
 	}
 	
@@ -76,9 +75,9 @@ public class Player extends GameLocation {
 		for (Item i : itemList) {
 			text = text + i.getType() + ",";
 		}
-		text += " Gold:" + this.gold;
+		text = " Gold:" + this.gold;
 		System.out.println(text);
-		// this.use();
+		this.use();
 	}
 	
 	public void attack(Monster m) {
@@ -93,22 +92,15 @@ public class Player extends GameLocation {
 		}
 		if (m.getHp() <= 0) {
 			System.out.println(m.getType() + "を倒した。");
-			System.out.println("報酬としてGoldを" + this.getGame().REWARD + "手に入れた。");
-			this.gold += this.getGame().REWARD;
-			this.getGame().getMap()[m.getY()][m.getX()] = null;
+			System.out.println("報酬としてGoldを" + Game.REWARD + "手に入れた。");
+			this.gold += Game.REWARD;
+			Game.map[m.getY()][m.getX()] = ".";
 		}		
 	}
 	
 	public void look() {
 		System.out.print("[" + getY() + ":" + getX() + "] ");
-		SetOnMap soMapObj = this.getGame().getMap()[getY()][getX()];
-		String msg = null;
-		if (soMapObj == null) {
-			msg = "何も見当たらない";
-		} else {
-			msg = soMapObj.getType();
-		}
-		System.out.println(msg);
+		System.out.println(Game.map[getY()][getX()]);
 	}
 	
 	public String toString() {
@@ -134,7 +126,7 @@ public class Player extends GameLocation {
 		case "n" -> { moveUp(); }
 		case "s" -> { moveDown(); }
 		}
-		if (this.getGame().getMap()[this.getY()][this.getX()] instanceof NotEnter) {
+		if (Game.map[this.getY()][this.getX()].equals("#")) {
 			System.out.println("そちらには行けません。");
 			this.setY(_y);
 			this.setX(_x);
@@ -146,7 +138,7 @@ public class Player extends GameLocation {
 	}
 	private void moveRight() {
 		this.setX(this.getX() + 1);
-		if (this.getX() >= this.getGame().XSIZE) { this.setX(this.getGame().XSIZE - 1);	}
+		if (this.getX() >= Game.XSIZE) { this.setX(Game.XSIZE - 1);	}
 	}
 	private void moveUp() {
 		this.setY(this.getY() - 1);
@@ -154,7 +146,7 @@ public class Player extends GameLocation {
 	}
 	private void moveDown() {
 		this.setY(this.getY() + 1);
-		if (this.getY() >= this.getGame().YSIZE) { this.setY(this.getGame().YSIZE - 1);	}
+		if (this.getY() >= Game.YSIZE) { this.setY(Game.YSIZE - 1);	}
 	}
 
 	public List<Item> getItemList() {

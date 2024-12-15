@@ -1,6 +1,6 @@
 package main;
 
-public class Gold extends Item {
+public class Gold extends SetOnMap {
 	private int gold; 
 	
 	public Gold(String type, Game game) {

@@ -3,29 +3,47 @@ package main;
 import java.util.Scanner;
 
 public class Main {
+	
+	/**
+	 * YSIZE
+	 * XSIZE
+	 * REWARD -- モンスターを１つ倒した時の報酬
+	 * AMOUNT -- gold がどれだけたまったらゴールとするか
+	 * @return
+	 */
+	private static Game startGame() {
+		Game game = new Game(10, 10, 50, 300);
+		
+		new NotEnter(game);
+		new NotEnter(game);
+		new NotEnter(game);
+		new NotEnter(game);
+		
+		new Goblin("goblin", "斧で斬りつけた", 21, game);
+		new Goblin("goblin", "棍棒で殴りかかった", 11, game);
+		new Dragon("dragon", "口から炎を噴き出した", 33, game);
+		new Dragon("dragon", "大きな口で噛みついた", 33, game);
+		new Potion("potion", game);
+		new Potion("potion", game);
+		new Potion("potion", game);
+		new Ether("ether", game);
+		new Ether("ether", game);
+		for (int i = 0; i < 5; i++) {
+			new Gold("Gold", game);
+		}
+		return game;
+	}
 
 	public static void main(String[] args) {
 		Game.printOpening();
 		String playerName = Game.getPlayerName();
-		Game game = new Game();
-		
-		new NotEnter(game);
-		new NotEnter(game);
-		
-		Goblin g = new Goblin("goblin", "斧", 11, game);
-		Dragon d = new Dragon("dragon", "炎", 33, game);
-		Potion po = new Potion("potion", game);
-		Ether e = new Ether("ether", game);
+		Game game = startGame();
 		Player p = new Player(playerName, game);
 		p.look();
-		Gold[] golds = new Gold[5];
-		for (int i = 0; i < golds.length; i++) {
-			golds[i] = new Gold("Gold", game);
-		}
 
 		outHere:
 		while (true) {
-			if (p.getGold() == Game.AMOUNT) {
+			if (p.getGold() == game.AMOUNT) {
 				System.out.println("Goldが" + p.getGold() + "になった。目的は達成した。");
 				break;
 			}
@@ -47,35 +65,42 @@ public class Main {
 				case "i" -> { p.status(); }
 				case "p" -> { game.printMap(p); }
 			}
-			SetOnMap[][] soMap = game.getMap();
+			SetOnMap soMapObj = game.getMap()[p.getY()][p.getX()];
 			String thing = null;
-			if (soMap[p.getY()][p.getX()] == null) {
+			if (soMapObj == null) {
 				thing = ".";
 			} else {
-				thing = soMap[p.getY()][p.getX()].getType();
+				thing = soMapObj.getType();
 			}
 			switch (thing) {
-			case "goblin" -> { Game.buttle(p, g); }
-			case "dragon" -> { Game.buttle(p, d); }
-			case "potion" -> { p.take(po); }
-			case "ether" -> { p.take(e); }
-			case "Gold" -> {
-				Gold gold = pickupGold(golds, p);
-				p.take(gold); 
+				case "goblin" -> {
+					if (soMapObj instanceof Goblin goblin) {
+						Game.buttle(p, goblin); 
+					}
+				}
+				case "dragon" -> {
+					if (soMapObj instanceof Dragon dragon) {
+						Game.buttle(p, dragon); 
+					}
+				}
+				case "potion" -> {
+					if (soMapObj instanceof Potion potion) {
+						p.take(potion); 
+					}
+				}
+				case "ether" -> {
+					if (soMapObj instanceof Ether ether) {
+						p.take(ether); 
+					}
+				}
+				case "Gold" -> {
+					if (soMapObj instanceof Gold gold) {
+						p.take(gold); 
+					}
 				}
 			}
 		}
 		System.out.println("GAME OVER");
 	}
 	
-	public static Gold pickupGold(Gold[] golds, Player p) {
-		Gold gold = null;
-		for (Gold g : golds) {
-			if (g.getY() == p.getY() && g.getX() == p.getX()) {
-				gold = g;
-			}
-		}
-		return gold;
-	}
-
 }

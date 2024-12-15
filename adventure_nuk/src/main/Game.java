@@ -5,10 +5,12 @@ import java.util.Scanner;
 public class Game {
 	public static final int YSIZE = 5;
 	public static final int XSIZE = 5;
+	public static final int REWARD = 50;
+	public static final int AMOUNT = 200;
 	public static String[][] map = {
 			{".", ".", ".", ".", "."},
 			{".", ".", ".", ".", "."},
-			{".", ".", "#", "#", "."},
+			{".", ".", ".", ".", "."},
 			{".", ".", ".", ".", "."},
 			{".", ".", ".", ".", "."}
 	}; 
@@ -26,19 +28,49 @@ public class Game {
 		System.out.println(str);
 	}
 	
-	public static void printMap(Player p) {
+	public static void printMap() {
 		for (int y = 0; y < YSIZE; y++) {
 			System.out.print("| ");
 			for (int x = 0; x < XSIZE; x++) {
-				if (y == p.getY() && x == p.getX()) {
-					System.out.print("*");
-				} else {
-					System.out.print(map[y][x].charAt(0));
-				}
-				System.out.print(" | ");
+				System.out.print(map[y][x].charAt(0) + " | ");
 			}
 			System.out.println();
 		}
+	}
+	
+	public static void printMap(Player p) {
+		char c = ' ';
+		for (int y = 0; y < YSIZE; y++) {
+			System.out.print("| ");
+			for (int x = 0; x < XSIZE; x++) {
+				if (p.getY() == y && p.getX() == x) {
+					c = '*';
+				} else {
+					c = map[y][x].charAt(0);
+				}
+				System.out.print(c + " | ");
+			}
+			System.out.println();
+		}
+	}
+	
+	public static void printOpening() {
+		String opening = 
+				"""
+				+-------------------------+
+				|  Adventure Game         |
+				|                         |
+				|     by Seiichi Nukayama |
+				+-------------------------+
+				""";
+		System.out.println(opening);
+	}
+	
+	public static String getPlayerName() {
+		Scanner scan = new Scanner(System.in);
+		System.out.print("プレーヤーの名前を決めてください > ");
+		String name = scan.nextLine();
+		return name;
 	}
 	
 	public static void buttle(Player p, Monster m) {
@@ -57,8 +89,9 @@ public class Game {
 				}
 			}
 		}
-		if (m.getHp() <= 0) {
-			map[m.getY()][m.getX()] = ".";
- 		}
+//		if (m.getHp() <= 0) {
+//			map[m.getY()][m.getX()] = ".";
+//			p.setGolds(Game.REWARD);
+// 		}
 	}
 }
